@@ -26,7 +26,9 @@ var AuthModal = React.createClass({
           <button className="auth-btn" type="submit">
             {this.state.authType}
           </button>
-          <span>Need an account? <a href="#" onClick={this.signUp}>Sign Up Now</a></span>
+          <span>
+            Need an account? <a href="#" onClick={this.signUp}>Sign Up Now</a>
+          </span>
         </form>
       </div>
     );
