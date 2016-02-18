@@ -7,7 +7,8 @@ var Nav = React.createClass({
     <nav>
       <ul>
         <li><a href="#">Home</a></li>
-        <li><Search /></li>
+        <li><Search searchMethod="this.props.explorePlace" /></li>
+        <li><Search searchMethod="this.props.searchPlace" /></li>
         <li><a href="#">Log In</a></li>
       </ul>
     </nav>
