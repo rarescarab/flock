@@ -1,6 +1,7 @@
 var App = React.createClass({
   getInitialState: function () {
     return {
+      username: '', // init username
       location: 'San Francisco' // initialize location state 
     };
   },
