@@ -1,7 +1,12 @@
 var App = React.createClass({
   getInitialState: function () {
     return {
-      username: '', // init username
+      // init user and perhaps store user data as object in state
+      user: {
+        id: '12345',
+        username: 'bennyhungry',
+        name: 'Benny Hung'
+      }, 
       location: 'San Francisco' // initialize location state 
     };
   },
