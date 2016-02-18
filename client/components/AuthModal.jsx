@@ -1,1 +1,26 @@
-AuthModal.jsx
+var AuthModal = React.createClass({
+  getInitialState: function () {
+    return {
+      authType: 'Log In'
+    };
+  },
+
+  authenticateUser: function (username, password) {
+    // invoke method to check if user is authenticated
+    // potentially a utility.js
+  },
+
+  render: function () {
+    return (
+      <div className="auth-modal">
+        <form>
+          <input className="auth-user" type="text" />
+          <input className="auth-pass" type="password"/>
+          <button className="auth-btn" type="submit">
+            {this.state.authType}
+          </button>
+        </form>
+      </div>
+    );
+  }
+});
