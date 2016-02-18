@@ -15,7 +15,11 @@
 │		│		├── BoardModal.jsx
 │		│		├── BoardCardModal.jsx
 │		│		├── Nav.jsx
-│		│   └── Search.jsx
+│		│   	└── Search.jsx
+│   └── lib
+│		├── foursquareAPI.js
+│   └── config
+│		├── foursquareAPIKey.js
 ├── server
 │   └── config.js
 ├── public
