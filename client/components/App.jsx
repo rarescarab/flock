@@ -5,7 +5,8 @@ var App = React.createClass({
       user: {
         id: '12345',
         username: 'bennyhungry',
-        name: 'Benny Hung'
+        name: 'Benny Hung',
+        home: 'San Francisco'
       }, 
       location: 'San Francisco' // initialize location state 
     };
