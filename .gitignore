@@ -1,1 +1,2 @@
-.gitignore
+## API keys ##
+client/config/foursquareAPIkeys.js
