@@ -12,10 +12,23 @@ var App = React.createClass({
     };
   },
 
+  searchPlace: function (options) {
+    // API call to info about a city or a query
+    // Takes an options object to be used for GET request
+    // { city: 'San Diego', query: 'bars' }
+  },
+
+  explorePlace: function (query) {
+    // Foursquare Explore API call to return inspiration data
+  },
+
   render: function () {
     return (
       <div className="container">
-        <Nav />
+        <Nav
+          searchPlace={this.searchPlace}
+          explorePlace={this.explorePlace}
+        />
         <main>
           <Search location={this.state.location} />
         </main>
