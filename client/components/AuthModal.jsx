@@ -7,7 +7,14 @@ var AuthModal = React.createClass({
 
   authenticateUser: function (username, password) {
     // invoke method to check if user is authenticated
-    // potentially a utility.js
+    // potentially a utility.js that uses FB API
+  },
+
+  signUp: function(evt) {
+    evt.preventDefault();
+    this.setState({
+      authType: 'Sign In'
+    });
   },
 
   render: function () {
@@ -19,6 +26,7 @@ var AuthModal = React.createClass({
           <button className="auth-btn" type="submit">
             {this.state.authType}
           </button>
+          <span>Need an account? <a href="#" onClick={this.signUp}>Sign Up Now</a></span>
         </form>
       </div>
     );
