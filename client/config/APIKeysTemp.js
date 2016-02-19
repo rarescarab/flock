@@ -1,0 +1,2 @@
+window.FOURSQUARE_CLIENT_ID = '';
+window.FOURSQUARE_CLIENT_SECRET = '';

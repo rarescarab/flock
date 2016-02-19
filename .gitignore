@@ -1,4 +1,5 @@
 ## API keys ##
-client/config/foursquareAPIKey.js
+client/config/APIKeys.js
 
 node_modules
+public/lib/
