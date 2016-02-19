@@ -2,3 +2,4 @@
 client/config/foursquareAPIKey.js
 
 node_modules
+public/lib/
