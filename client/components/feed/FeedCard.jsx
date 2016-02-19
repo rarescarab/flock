@@ -1,10 +1,10 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 
-var Board = React.createClass({
+var FeedCard = React.createClass({
   render: function () {
     return;
   };
 });
 
-module.exports = Board;
+module.exports = FeedCard;

@@ -1,3 +1,6 @@
+var React = require('react');
+var ReactRouter = require('react-router');
+
 var Nav = React.createClass({
   renderAuthModal: function () {
     // display <AuthModal />
@@ -14,3 +17,5 @@ var Nav = React.createClass({
     </nav>
   };
 });
+
+module.exports = Nav;

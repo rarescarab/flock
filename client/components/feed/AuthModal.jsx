@@ -1,3 +1,6 @@
+var React = require('react');
+var ReactRouter = require('react-router');
+
 var AuthModal = React.createClass({
   getInitialState: function () {
     return {
@@ -34,3 +37,5 @@ var AuthModal = React.createClass({
     );
   }
 });
+
+module.exports = AuthModal;
