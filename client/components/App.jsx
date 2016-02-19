@@ -30,6 +30,10 @@ var App = React.createClass({
           explorePlace={this.explorePlace}
         />
         <main>
+          {
+            // we think React Router goes in here somehow
+            // so that it renders Board
+          }
           <Search location={this.state.location} />
         </main>
       </div>
