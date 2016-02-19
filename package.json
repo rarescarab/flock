@@ -1,4 +1,12 @@
 {
+  "name": "Flock",
+  "version": "0.0.0",
+  "authors": [
+    "Andrew Bresee",
+    "Benny Hung",
+    "John Domingo",
+    "Liz Mallalieu"
+  ],
   "devDependencies": {
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.3",
@@ -15,5 +23,9 @@
     "q": "^1.4.1",
     "morgan": "^1.1.1",
     "request": "^2.36.0"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --hot --progress --colors",
+    "build": "webpack --progress --colors"
   }
 }
