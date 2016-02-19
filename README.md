@@ -4,33 +4,33 @@
 .
 ├── client
 │   └── components
-│		│		├── App.jsx
-│		│		├── Board.jsx
-│		│		├── BoardCard.jsx
-│		│		├── Feed.jsx
-│		│		├── FeedCard.jsx
-│		│		├── User.jsx
-│		│		├── UserCard.jsx
-│		│		├── AuthModal.jsx
-│		│		├── BoardModal.jsx
-│		│		├── BoardCardModal.jsx
-│		│		├── Nav.jsx
-│		│   	└── Search.jsx
+│   │   ├── App.jsx
+│   │   ├── Board.jsx
+│   │   ├── BoardCard.jsx
+│   │   ├── Feed.jsx
+│   │   ├── FeedCard.jsx
+│   │   ├── User.jsx
+│   │   ├── UserCard.jsx
+│   │   ├── AuthModal.jsx
+│   │   ├── BoardModal.jsx
+│   │   ├── BoardCardModal.jsx
+│   │   ├── Nav.jsx
+│   │   └── Search.jsx
 │   └── lib
-│		├── foursquareAPI.js
+│   ├── foursquareAPI.js
 │   └── config
-│		├── foursquareAPIKey.js
+│   ├── foursquareAPIKey.js
 ├── server
 │   └── config.js
 ├── public
-│		├── app.js
-│		├── index.html
-│		├── style.css
-│		├── assets
+│   ├── app.js
+│   ├── index.html
+│   ├── style.css
+│   ├── assets
 │   └── lib
 ├── db
 ├── spec
-│		├── client
+│   ├── client
 │   └── server
 ├── package.json
 ├── bower.json
