@@ -1,3 +1,6 @@
+var React = require('react');
+var ReactRouter = require('react-router');
+
 var Search = React.createClass({
   getInitialState: function () {
     return {
@@ -32,3 +35,5 @@ var Search = React.createClass({
     );
   }
 });
+
+module.exports = Search;

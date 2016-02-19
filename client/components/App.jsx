@@ -1,3 +1,24 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+var ReactRouter = require('react-router');
+
+// main components
+var Nav = require('./Nav.jsx');
+var Search = require('/.Search.jsx');
+// board components
+var Board = require('./board/Board.jsx');
+var BoardCard = require('./board/BoardCard.jsx');
+var BoardCardModal = require('./board/BoardCardModal.jsx');
+// feed components
+var AuthModal = require('./feed/AuthModal.jsx');
+var Feed = require('./feed/Feed.jsx');
+var FeedCard = require('./feed/FeedCard.jsx');
+// user components
+var BoardModal = require('./user/BoardModal.jsx');
+var User = require('./user/User.jsx');
+var UserCard = require('./user/UserCard.jsx');
+
+
 var App = React.createClass({
   getInitialState: function () {
     return {

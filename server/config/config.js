@@ -1,1 +1,2 @@
-config.js
+var mongoose = require('mongoose');
+
