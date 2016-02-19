@@ -1,1 +1,19 @@
-bower.json
+{
+  "name": "Flock",
+  "version": "0.0.0",
+  "authors": [
+    "Andrew Bresee",
+    "Benny Hung",
+    "John Domingo",
+    "Liz Mallalieu"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0"
+  }
+}
