@@ -2,9 +2,36 @@ var React = require('react');
 var ReactRouter = require('react-router');
 
 var Board = React.createClass({
-  render: function () {
-    return;
-  };
+	getInitialState: function(){
+		return {
+			currentBoard: //All other info in database
+		}
+	},
+
+	renderBoardCardModal: function(){
+		return <BoardCardModal/>
+	},
+
+	handleClick: function(){
+		this.renderBoardCardModal()
+	},
+
+	render: function(){
+		var boardCards = this.props.cards.map(function(card){
+			return <BoardCard cardDetails={this.props.cards.card}/>
+		});
+
+		return (
+			<div>
+				<h3> {this.title} </h3>
+				{boardCards}
+				<button onClick={this.handleClick}> Add New Event </button>
+			</div>
+		)
+
+
+	}
+  
 });
 
 module.exports = Board;
