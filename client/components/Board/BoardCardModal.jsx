@@ -2,9 +2,36 @@ var React = require('react');
 var ReactRouter = require('react-router');
 
 var BoardCardModal = React.createClass({
-  render: function () {
-    return;
-  };
+	handleInputChange:function(e){
+
+	},
+
+	render: function(){
+		return (
+			<div>
+				//Collect information about new event
+				//Bind should give access of props to the parent for searching. 
+				<form class="newBoardCard">
+
+					<input placeholder="Title" name="title" value={this.state.Title} onChange={this.handleInputChange}/>
+
+					<input placeholder="Description" name="description" value={this.state.description} onChange={this.handleInputChange}/>
+
+					//Get information from App Search places, and save on state/db 
+
+					<input onSubmit={this.props.onSubmit.bind(null, this)} placeholder="Search"/>
+
+					//This button will change the state of submitted to be true. 
+				<button> Enter Event </button>
+				</form onClick={this.props.searchPlaces()}>
+
+
+				<button onClick={this.handleClick}> Save Event </button>
+			</div>
+		)
+
+
+	}
 });
 
 module.exports = BoardCardModal;

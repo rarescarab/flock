@@ -37,6 +37,9 @@ var App = React.createClass({
     // API call to info about a city or a query
     // Takes an options object to be used for GET request
     // { city: 'San Diego', query: 'bars' }
+
+    //Querry will come from BoardCardModal. 
+
   },
 
   explorePlace: function (query) {
