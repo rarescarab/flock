@@ -18,7 +18,6 @@ var BoardCard = React.createClass({
 			<div>
 				<h3> {this.title} </h3>
 				<p>{this.props.discription}</p>
-				//This may need to be a component
 				<div className="fourSquareData"></div>
 			</div>
 		)
