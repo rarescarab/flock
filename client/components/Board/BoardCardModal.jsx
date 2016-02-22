@@ -17,16 +17,15 @@ var BoardCardModal = React.createClass({
 
 					<input placeholder="Description" name="description" value={this.state.description} onChange={this.handleInputChange}/>
 
+					<input placeholder="Date" name="date" value={this.state.date} onChange={this.handleInputChange}/>
+
 					{/* Get information from App Search places, and save on state/db */}
 
 					<input onSubmit={this.props.onSubmit.bind(null, this)} placeholder="Search"/>
 
 					{/* This button will change the state of submitted to be true */}
-				<button> Enter Event </button>
+					<button onClick={this.handleClick}> Save Event </button>
 				</form>
-
-
-				<button onClick={this.handleClick}> Save Event </button>
 			</div>
 		)
 
