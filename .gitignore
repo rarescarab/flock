@@ -3,3 +3,4 @@ client/config/APIKeys.js
 
 node_modules
 public/lib/
+public/app.js

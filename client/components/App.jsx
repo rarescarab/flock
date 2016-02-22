@@ -4,19 +4,19 @@ var ReactRouter = require('react-router');
 
 // main components
 var Nav = require('./Nav.jsx');
-var Search = require('/.Search.jsx');
+var Search = require('./Search.jsx');
 // board components
 var Board = require('./board/Board.jsx');
 var BoardCard = require('./board/BoardCard.jsx');
 var BoardCardModal = require('./board/BoardCardModal.jsx');
 // feed components
-var AuthModal = require('./feed/AuthModal.jsx');
-var Feed = require('./feed/Feed.jsx');
-var FeedCard = require('./feed/FeedCard.jsx');
+// var AuthModal = require('./feed/AuthModal.jsx');
+// var Feed = require('./feed/Feed.jsx');
+// var FeedCard = require('./feed/FeedCard.jsx');
 // user components
-var BoardModal = require('./user/BoardModal.jsx');
-var User = require('./user/User.jsx');
-var UserCard = require('./user/UserCard.jsx');
+// var BoardModal = require('./user/BoardModal.jsx');
+// var User = require('./user/User.jsx');
+// var UserCard = require('./user/UserCard.jsx');
 
 
 var App = React.createClass({
@@ -28,8 +28,8 @@ var App = React.createClass({
         username: 'bennyhungry',
         name: 'Benny Hung',
         home: 'San Francisco'
-      }, 
-      location: 'San Francisco' // initialize location state 
+      },
+      location: 'San Francisco' // initialize location state
     };
   },
 
@@ -38,17 +38,21 @@ var App = React.createClass({
     // Takes an options object to be used for GET request
     // { city: 'San Diego', query: 'bars' }
 
-    //Querry will come from BoardCardModal. 
-
+    //Query will come from BoardCardModal.
+    console.log('Searching Place...');
+    return;
   },
 
   explorePlace: function (query) {
     // Foursquare Explore API call to return inspiration data
+    console.log('Exploring Place...');
+    return;
   },
 
   render: function () {
     return (
       <div className="container">
+        <h1>goodbye</h1>
         <Nav
           searchPlace={this.searchPlace}
           explorePlace={this.explorePlace}

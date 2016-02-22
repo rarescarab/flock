@@ -4,7 +4,7 @@ var ReactRouter = require('react-router');
 var Board = React.createClass({
 	getInitialState: function(){
 		return {
-			currentBoard: //All other info in database
+			currentBoard: null //All other info in database
 		}
 	},
 
@@ -31,7 +31,7 @@ var Board = React.createClass({
 
 
 	}
-  
+
 });
 
 module.exports = Board;
