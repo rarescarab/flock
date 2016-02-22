@@ -23,7 +23,7 @@ var Board = React.createClass({
 
 		return (
 			<div>
-				<h3> {this.title} </h3>
+				<h3>{this.title}</h3>
 				{boardCards}
 				<button onClick={this.handleClick}> Add New Event </button>
 			</div>
