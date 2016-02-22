@@ -1,11 +1,11 @@
-  var webpack = require('webpack');
+var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
-    'babel-polyfill',
-    'webpack-hot-middleware/client',
+    'webpack-dev-server/client?http://localhost:3001',
+    'webpack/hot/only-dev-server',
     path.join(__dirname, '/client/components/App.jsx')
   ],
   resolve: {
@@ -20,7 +20,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       include: path.join(__dirname, '/client/components/'),
-      loader: 'babel-loader'
+      loaders: ['react-hot-loader', 'babel-loader']
     }]
   },
   plugins: [

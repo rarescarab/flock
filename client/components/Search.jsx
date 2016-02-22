@@ -26,7 +26,7 @@ var Search = React.createClass({
         console.log(result);
       }
     });
-  }, 
+  },
 
   render: function () {
     return (
