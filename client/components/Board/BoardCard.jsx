@@ -3,13 +3,12 @@ var ReactRouter = require('react-router');
 
 var BoardCard = React.createClass({
 	getInitialState: function(){
-		//The boardType will determine if the card is a board-card, a user-card, or a feed-card. 
+		//The boardType will determine if the card is a board-card, a user-card, or a feed-card.
 		//Background image will come form the api if it is a board-card,
-		//or be set as the first location if it is a user-card. 
+		//or be set as the first location if it is a user-card.
 		return {
 			boardType: null,
-			background-image: null,
-			image: ''
+			backgroundImage: null
 		}
 	},
 
