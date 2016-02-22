@@ -8,10 +8,24 @@ var BoardCard = React.createClass({
 		//or be set as the first location if it is a user-card. 
 		return {
 			boardType: null,
-			background-image: null
+			background-image: null,
+			image: ''
 		}
 	},
 
+	searchById: function(venueId) {
+		//ajax get request by venue id
+
+		$.get('https://api.foursquare.com/v2/venues/+'+venueId+'?client_id='+FOURSQUARE_CLIENT_ID+'&client_secret='+FOURSQUARE_CLIENT_SECRET)
+      .done(function(data) {
+        console.log("WORKS!");
+        callback(data);
+      }).fail(function(err) {
+        console.log('there was an error');
+        callback(err);
+      });
+
+	},
 
 	handleClick: function(){
 	},
