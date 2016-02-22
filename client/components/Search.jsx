@@ -25,12 +25,10 @@ var Search = React.createClass({
     return (
       <form onSubmit={this.handleSubmit}>
         <input
-          type="text" 
-          placeholder="Search..." 
-          onChange={function (evt) { 
-            this.handleInputChange(evt.target.value);
-          } 
-        }/>
+          type="text"
+          placeholder="Search..."
+          onChange={this.handleInputChange}
+        />
       </form>
     );
   }
