@@ -12,8 +12,20 @@ var BoardCardModal = React.createClass({
     };
   },
 
+  getVenueId: function(){
+		$.get('https://api.foursquare.com/v2/venues/+'+venueId+'?client_id='+FOURSQUARE_CLIENT_ID+'&client_secret='+FOURSQUARE_CLIENT_SECRET)
+      .done(function(data) {
+        console.log("WORKS!");
+        callback(data);
+      }).fail(function(err) {
+        console.log('there was an error');
+        callback(err);
+    });
+  }
+
 	handleClick:function(e){
 		var newCard = this.state;
+
 		BoardCard.save(newCard, function(err, result) {
 			if(err) {
 				console.log(err);
@@ -37,20 +49,20 @@ var BoardCardModal = React.createClass({
 					Bind should give access of props to the parent for searching */}
 				<form className="newBoardCard"  onClick={this.props.searchPlaces()}>
 
-				<div className="userCardInfo">
-					<input placeholder="Title" name="title" value={this.state.userTitle} onChange={this.handleInputChange}/>
-					<input placeholder="Description" name="description" value={this.state.description} onChange={this.handleInputChange}/>
-					<input placeholder="Date" name="date" value={this.state.date} onChange={this.handleInputChange}/>
-					{/* Get information from App Search places, and save on state/db */}
-				</div>
+					<div className="userCardInfo">
+						<input placeholder="Title" name="title" value={this.state.userTitle} onChange={this.handleInputChange}/>
+						<input placeholder="Description" name="description" value={this.state.description} onChange={this.handleInputChange}/>
+						<input placeholder="Date" name="date" value={this.state.date} onChange={this.handleInputChange}/>
+						{/* Get information from App Search places, and save on state/db */}
+					</div>
 
-				<Search>
+					<Search/>
 
-				<div className="fourSquareData">
-					<h3> {this.venueTitle} </h3>
-					<h4> {this.catagory} </h4>
-					<h4> {this.address} </h4>
-				</div>
+					<div className="fourSquareData">
+						<h3> {this.venueTitle} </h3>
+						<h4> {this.catagory} </h4>
+						<h4> {this.address} </h4>
+					</div>
 
 					<input onSubmit={this.props.onSubmit.bind(null, this)} placeholder="Search"/>
 

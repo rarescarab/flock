@@ -1,3 +1,5 @@
+//Should we remove this? Won't this be covered by boradCard
+
 var React = require('react');
 var ReactRouter = require('react-router');
 
