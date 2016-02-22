@@ -52,7 +52,6 @@ var App = React.createClass({
   render: function () {
     return (
       <div className="container">
-        <h1>goodbye</h1>
         <Nav
           searchPlace={this.searchPlace}
           explorePlace={this.explorePlace}
