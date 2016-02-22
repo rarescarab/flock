@@ -1,8 +1,32 @@
 var React = require('react');
 var ReactRouter = require('react-router');
+var BoardCard = require('../../../server/models/BoardCard');
 
 var BoardCardModal = React.createClass({
-	handleInputChange:function(e){
+
+	getInitialState: function () {
+    return {
+      userTitle: '',
+		  description: '',
+		  venueId: 0
+    };
+  },
+
+	handleClick:function(e){
+		var newCard = this.state;
+		BoardCard.save(newCard, function(err, result) {
+			if(err) {
+				console.log(err);
+			} else {
+				this.props.searchById(this.state.venueId, function(err, result) {
+					if(err) {
+						console.log(err);
+					} else {
+						console.log('result of searchbyid', result);
+					}
+				});
+			}
+		});
 
 	},
 
@@ -20,6 +44,8 @@ var BoardCardModal = React.createClass({
 						{/* Get information from App Search places, and save on state/db */}
 					</div>
 
+				<Search>
+
 				<div className="fourSquareData">
 					<h3> {this.venueTitle} </h3>
 					<h4> {this.catagory} </h4>
@@ -31,7 +57,6 @@ var BoardCardModal = React.createClass({
 					{/* This button will change the state of submitted to be true */}
 					<button onClick={this.handleClick}> Save Event </button>
 				</form>
-			<button onClick={this.handleClick}>Remove Card</button>
 
 			</div>
 		)

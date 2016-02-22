@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var boardCardSchema = new mongoose.Schema({
-  title: String,
+  userTitle: String,
   description: String,
   venueId: Number,
   createdAt: { type: Date, default: Date.now }
