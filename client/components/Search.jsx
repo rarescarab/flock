@@ -18,8 +18,15 @@ var Search = React.createClass({
   // handles when user hits 'Enter' key while in search box
   handleSubmit: function (evt) {
     evt.preventDefault();
-    this.props.searchMethod(this.state.value);
-  },
+    this.props.searchMethod(this.state.value, function(err, result) {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log('inside handleSubmit in Search component');
+        console.log(result);
+      }
+    });
+  }, 
 
   render: function () {
     return (

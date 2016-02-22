@@ -29,14 +29,25 @@ var App = React.createClass({
         name: 'Benny Hung',
         home: 'San Francisco'
       },
-      location: 'San Francisco' // initialize location state
+      location: 'San Francisco, CA' // initialize location state
     };
   },
 
-  searchPlace: function (options) {
-    // API call to info about a city or a query
-    // Takes an options object to be used for GET request
-    // { city: 'San Diego', query: 'bars' }
+  searchPlace: function (query, callback) {
+
+      var city = this.state.location.split(' ');
+      city = city.join('+');
+
+      console.log('city & inside searchPlace function in App', city);
+
+      $.get('https://api.foursquare.com/v2/venues/search?client_id='+FOURSQUARE_CLIENT_ID+'&client_secret='+FOURSQUARE_CLIENT_SECRET+'&v=20130815&near='+city+'&query='+query)
+      .done(function(data) {
+        console.log("WORKS!");
+        callback(data);
+      }).fail(function(err) {
+        console.log('there was an error')
+        callback(err);
+      });
 
     //Query will come from BoardCardModal.
     console.log('Searching Place...');
@@ -61,8 +72,6 @@ var App = React.createClass({
             // we think React Router goes in here somehow
             // so that it renders Board
           }
-          <h1>HELLO!!!</h1>
-          <Search location={this.state.location} />
         </main>
       </div>
     );
