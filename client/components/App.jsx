@@ -61,6 +61,7 @@ var App = React.createClass({
             // we think React Router goes in here somehow
             // so that it renders Board
           }
+          <h1>HELLO!!!</h1>
           <Search location={this.state.location} />
         </main>
       </div>
