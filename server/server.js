@@ -52,22 +52,45 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 // GET REQUESTS //
 
 app.get('/', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
 	fs.readFile(path.resolve(__dirname, '../public/index.html'), function(err, data) {
 		if (err) {
-      console.error(err);
+      throw new Error(err);
     } else {
+      res.writeHead(200, {'Content-Type': 'text/html'});
 		  res.send(data);
     }
 	});
 });
 
-app.get('/api/users/*', function(req, res) {});
-app.get('/api/boards/*', function(req, res) {});
-app.get('/api/cards/*', function(req, res) {});
+app.get('/api/users/*', function(req, res) {
+  var username = req.params[0];
+  var fbId = req.body.fbId;
+
+  return findUser({name: username})
+    .then(function (user) {
+      if (!user) {
+        throw new Error('User already exists');
+      } else {
+        res.status(200).json(user);
+      }
+    }).fail(function (err) {
+      res.status(404).json(err);
+    });
+});
+
+app.get('/api/boards/*', function(req, res) {
+  var board = req.params[0];
+  res.end();
+});
+
+app.get('/api/cards/*', function(req, res) {
+  var card = req.params[0];
+  res.end();
+});
 
 // POST REQUESTS //
-app.post('/api/users', function(req, res) {});
+
+app.post('/api/users', function(req, res, next) {});
 app.post('/api/boards', function(req, res) {});
 app.post('/api/cards', function(req, res) {});
 
