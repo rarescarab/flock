@@ -12,16 +12,18 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   output: {
-    path: path.join(__dirname, '/public/'),
+    path: path.join(__dirname, '/public'),
     filename: 'app.js',
     publicPath: '/client'
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      include: path.join(__dirname, '/client/components/'),
-      loaders: ['react-hot-loader', 'babel-loader']
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        include: path.join(__dirname, '/client/components'),
+        loaders: ['react-hot-loader', 'babel-loader']
+      }
+    ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
