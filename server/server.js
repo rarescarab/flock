@@ -96,7 +96,18 @@ app.get('/api/boards/*', function(req, res) {
 
 app.get('/api/cards/*', function(req, res) {
   var card = req.params[0];
-  res.end();
+  var cardId = req.body.cardId;
+
+  return findBoard({cardId: cardId})
+    .then(function (card) {
+      if (!card) {
+        throw new Error('Card: %s does not exist', card);
+      } else {
+        res.status(200).json(card);
+      }
+    }).fail(function (err) {
+      res.status(404).json(err);
+    });
 });
 
 // POST REQUESTS //
