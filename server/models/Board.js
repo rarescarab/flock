@@ -5,7 +5,7 @@ var boardSchema = new mongoose.Schema({
   headerImage: String,
   description: String,
   userId: Number,
-  boardCardArray: [Number]
+  boardCardArray: []
 });
 
 module.exports = mongoose.model('Board', boardSchema);
