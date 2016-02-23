@@ -68,7 +68,7 @@ app.get('/api/users/*', function(req, res) {
   var name = req.params[0];
   var uid = req.body.uid;
 
-  return findUser({name: name})
+  return findUser({userId: uid})
     .then(function (user) {
       if (!user) {
         throw new Error('User: %s does not exist', username);
@@ -80,11 +80,11 @@ app.get('/api/users/*', function(req, res) {
     });
 });
 
-app.get('/api/boards/*', function(req, res) {
-  var board = req.params[0];
-  var boardId = req.body.boardId;
+app.get('/api/boards', function(req, res) {
+  var board = req.body.board;
+  var uid = req.body.uid;
 
-  return findBoard({boardId: boardId})
+  return findBoard({title: board, userId: uid})
     .then(function (board) {
       if (!board) {
         throw new Error('Board: %s does not exist', board);
@@ -96,8 +96,8 @@ app.get('/api/boards/*', function(req, res) {
     });
 });
 
-app.get('/api/cards/*', function(req, res) {
-  var card = req.params[0];
+app.get('/api/cards', function(req, res) {
+  var title = req.body.title;
   var cardId = req.body.cardId;
 
   return findBoard({cardId: cardId})
@@ -117,7 +117,6 @@ app.get('/api/cards/*', function(req, res) {
 app.post('/api/users', function(req, res, next) {
   var username = req.body.username;
   var uid = req.body.uid;
-  var board = req.body.board ? [req.body.board] : [];
 
   findUser({userId: uid})
     .then(function (user) {
@@ -127,7 +126,7 @@ app.post('/api/users', function(req, res, next) {
         return createUser({
           name: username,
           uid: uid,
-          boards: board
+          boards: []
         });
       }
     }).then(function (user) {
@@ -144,6 +143,7 @@ app.post('/api/boards', function(req, res) {
   var uid = req.body.uid;
   var boards = req.body.boards;
 
+  // perhaps this should happen client side
   boards.forEach(function (board) {
     if (board.title === title) {
       throw new Error('Board already exists');
@@ -180,7 +180,7 @@ app.post('/api/cards', function(req, res) {
   findCard({venueId: venue})
     .then(function (card) {
       if (card) {
-        throw new Error('Card already exists');
+        res.status(200, card);
       }
     })
     .catch(function (err) {
