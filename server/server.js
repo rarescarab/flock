@@ -69,7 +69,7 @@ app.get('/api/users/*', function(req, res) {
   return findUser({name: username})
     .then(function (user) {
       if (!user) {
-        throw new Error('User already exists');
+        throw new Error('User: %s does not exist', username);
       } else {
         res.status(200).json(user);
       }
@@ -80,7 +80,18 @@ app.get('/api/users/*', function(req, res) {
 
 app.get('/api/boards/*', function(req, res) {
   var board = req.params[0];
-  res.end();
+  var boardId = req.body.boardId;
+
+  return findBoard({boardId: boardId})
+    .then(function (board) {
+      if (!board) {
+        throw new Error('Board: %s does not exist', board);
+      } else {
+        res.status(200).json(board);
+      }
+    }).fail(function (err) {
+      res.status(404).json(err);
+    });
 });
 
 app.get('/api/cards/*', function(req, res) {
@@ -89,7 +100,6 @@ app.get('/api/cards/*', function(req, res) {
 });
 
 // POST REQUESTS //
-
 app.post('/api/users', function(req, res, next) {});
 app.post('/api/boards', function(req, res) {});
 app.post('/api/cards', function(req, res) {});
