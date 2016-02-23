@@ -22,7 +22,9 @@ var Card = require('./models/BoardCard');
 
 var findUser = Q.nbind(User.findOne, User);
 var createUser = Q.nbind(User.create, User);
+var updateUser = Q.nbind(User.update, User);
 var findBoard = Q.nbind(Board.findOne, Board);
+var findBoards = Q.nbind(Board.find, Board);
 var createBoard = Q.nbind(Board.create, Board);
 var findCard = Q.nbind(Card.findOne, Card);
 var createCard = Q.nbind(Card.create, Card);
@@ -63,10 +65,10 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/users/*', function(req, res) {
-  var username = req.params[0];
-  var fbId = req.body.fbId;
+  var name = req.params[0];
+  var uid = req.body.uid;
 
-  return findUser({name: username})
+  return findUser({name: name})
     .then(function (user) {
       if (!user) {
         throw new Error('User: %s does not exist', username);
@@ -111,8 +113,62 @@ app.get('/api/cards/*', function(req, res) {
 });
 
 // POST REQUESTS //
-app.post('/api/users', function(req, res, next) {});
-app.post('/api/boards', function(req, res) {});
+
+app.post('/api/users', function(req, res, next) {
+  var username = req.body.username;
+  var uid = req.body.uid;
+  var board = req.body.board ? [req.body.board] : [];
+
+  findUser({uid: uid})
+    .then(function (user) {
+      if (user) {
+        throw new Error('User already exists');
+      } else {
+        return createUser({
+          name: username,
+          uid: uid,
+          boards: board
+        });
+      }
+    }).then(function (user) {
+      res.json(201, user);
+    }).fail(function (err) {
+      next(err);
+    }).done();
+});
+
+app.post('/api/boards', function(req, res) {
+  var title = req.body.title;
+  var img = req.body.img;
+  var desc = req.body.desc;
+  var uid = req.body.uid;
+  var boards = req.body.boards;
+
+  boards.forEach(function (board) {
+    if (board.title === title) {
+      throw new Error('Board already exists');
+    }
+  });
+
+  boards.push({
+    title: title,
+    headerImage: img,
+    description: desc,
+    userId: uid,
+    boardCardArray: []
+  });
+
+  return updateUser({userId: uid},
+    {boards: boards})
+    .then(function (err, board) {
+      if (err) {
+        throw new Error('Could not update user boards');
+      } else {
+        res.json(200, board);
+      }
+    });
+});
+
 app.post('/api/cards', function(req, res) {});
 
 // PUT REQUESTS //
