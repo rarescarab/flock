@@ -45,6 +45,34 @@ db.once('open', function() {
 var app = express();
 app.use(express.static(path.resolve(__dirname, '../public')));
 
+/* ----------- */
+/*     API     */
+/* ----------- */
+
+// GET REQUESTS //
+
+app.get('/', function(req, res) {});
+app.get('/api/users/*', function(req, res) {});
+app.get('/api/boards/*', function(req, res) {});
+app.get('/api/cards/*', function(req, res) {});
+
+// POST REQUESTS //
+
+app.post('/api/users', function(req, res) {});
+app.post('/api/boards', function(req, res) {});
+app.post('/api/cards', function(req, res) {});
+
+// PUT REQUESTS //
+app.put('/api/users/*', function(req, res) {});
+app.put('/api/boards/*', function(req, res) {});
+app.put('/api/cards/*', function(req, res) {});
+
+// DELETE REQUESTS //
+app.delete('/api/users/*', function(req, res) {});
+app.delete('/api/boards/*', function(req, res) {});
+app.delete('/api/cards/*', function(req, res) {});
+
+
 /* --------------- */
 /*     SERVERS     */
 /* --------------- */
