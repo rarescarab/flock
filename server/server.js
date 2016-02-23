@@ -119,7 +119,7 @@ app.post('/api/users', function(req, res, next) {
   var uid = req.body.uid;
   var board = req.body.board ? [req.body.board] : [];
 
-  findUser({uid: uid})
+  findUser({userId: uid})
     .then(function (user) {
       if (user) {
         throw new Error('User already exists');
@@ -149,7 +149,6 @@ app.post('/api/boards', function(req, res) {
       throw new Error('Board already exists');
     }
   });
-
   boards.push({
     title: title,
     headerImage: img,
@@ -160,16 +159,47 @@ app.post('/api/boards', function(req, res) {
 
   return updateUser({userId: uid},
     {boards: boards})
-    .then(function (err, board) {
-      if (err) {
-        throw new Error('Could not update user boards');
+    .then(function (user) {
+      if (user) {
+        res.json(200, user.boards);
       } else {
-        res.json(200, board);
+        throw new Error('User not found');
       }
+    })
+    .fail(function (err) {
+      throw new Error('Could not update user boards');
     });
 });
 
-app.post('/api/cards', function(req, res) {});
+app.post('/api/cards', function(req, res) {
+  var title = req.body.title;
+  var desc = req.body.desc;
+  var venue = req.body.venue;
+  var board = req.body.board;
+
+  findCard({venueId: venue})
+    .then(function (card) {
+      if (card) {
+        throw new Error('Card already exists');
+      }
+    })
+    .catch(function (err) {
+      return createCard({
+        userTitle: title,
+        description: desc,
+        venueId: venue,
+        createdAt: new Date()
+      })
+      .then(function (card) {
+        if (card) {
+          res.status(201).json(card);
+        }
+      })
+      .fail(function (err) {
+        throw new Error('Failed to create card');
+      });
+    });
+});
 
 // PUT REQUESTS //
 app.put('/api/users/*', function(req, res) {});
