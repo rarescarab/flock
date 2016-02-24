@@ -29,19 +29,24 @@ var App = React.createClass({
     return {
       user: {
         _id: '1234567890',
-        username: 'John Domingo',
+        username: 'John Doe',
         boards: [],
-        home: 'Oakland, CA'
+        home: 94608
       },
-      location: 'San Francisco, CA'
+      location: {
+        city: 'Emeryville',
+        state: 'CA',
+        zip: 94608
+      },
+      locations: ['San Francisco, CA', 'New York, NY', 'Seattle, WA']
     };
   },
 
   searchPlace: function (query, callback) {
-      var city = this.state.location.split(' ');
-      city = city.join('+');
+      var city = this.state.location.city.split(' ').join('+');
+      city += ',+' + this.state.location.state;
 
-      console.log('city & inside searchPlace function in App', city);
+      console.log('Searching Foursquare for %s in %s', query, city);
 
       $.get('https://api.foursquare.com/v2/venues/search?client_id='+FOURSQUARE_CLIENT_ID+'&client_secret='+FOURSQUARE_CLIENT_SECRET+'&v=20130815&near='+city+'&query='+query)
       .done(function(data) {
@@ -69,6 +74,7 @@ var App = React.createClass({
         <Nav
           searchPlace={this.searchPlace}
           explorePlace={this.explorePlace}
+          locations={this.state.locations}
         />
         <main>
           {
