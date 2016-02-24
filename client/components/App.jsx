@@ -2,6 +2,11 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
 
+var configJSON = require('../../config.JSON');
+var configJS = require('../../config.js');
+
+console.log(configJSON);
+
 // main components
 var Nav = require('./Nav.jsx');
 var Search = require('./Search.jsx');
@@ -29,7 +34,6 @@ var App = React.createClass({
   },
 
   searchPlace: function (query, callback) {
-
       var city = this.state.location.split(' ');
       city = city.join('+');
 

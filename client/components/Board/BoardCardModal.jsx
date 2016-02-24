@@ -12,6 +12,9 @@ var BoardCardModal = React.createClass({
   },
 
   getVenueId: function (){
+	//When the user starts entering information into the search, there will be a drop down
+	//displaying all related results.
+	//When the user clicks on the venue, the id is stored.
 		$.get('https://api.foursquare.com/v2/venues/+'+venueId+'?client_id='+FOURSQUARE_CLIENT_ID+'&client_secret='+FOURSQUARE_CLIENT_SECRET)
       .done(function (data) {
         console.log("WORKS!");
@@ -24,7 +27,6 @@ var BoardCardModal = React.createClass({
 
 	handleClick:function (e){
 		// var newCard = this.state;
-		//
 		// BoardCard.save(newCard, function (err, result) {
 		// 	if(err) {
 		// 		console.log(err);
@@ -55,9 +57,14 @@ var BoardCardModal = React.createClass({
 						{/* Get information from App Search places, and save on state/db */}
 					</div>
 
-					<Search/>
 
 					<div className="fourSquareData">
+						<Search/>
+						 Search will then display all of the results into the bottom div */}
+
+						<div className="searchResults">
+						</div>
+						
 						<h3> {this.venueTitle} </h3>
 						<h4> {this.catagory} </h4>
 						<h4> {this.address} </h4>
