@@ -53,15 +53,15 @@ var Search = React.createClass({
               <i className="tags icon"></i>
               Filter by tag
             </div>
-            <div className="item">
+            <div className="item" data-text="Discussion">
               <div className="ui red empty circular label"></div>
               Important
             </div>
-            <div className="item">
+            <div className="item" data-text="Announcement">
               <div className="ui blue empty circular label"></div>
               Announcement
             </div>
-            <div className="item">
+            <div className="item" data-text="Discussion">
               <div className="ui black empty circular label"></div>
               Discussion
             </div>
@@ -70,15 +70,15 @@ var Search = React.createClass({
               <i className="calendar icon"></i>
               Filter by date
             </div>
-            <div className="item">
+            <div className="item" data-text="This Week">
               <i className="olive circle icon"></i>
               This Week
             </div>
-            <div className="item">
+            <div className="item" data-text="This Month">
               <i className="violet circle icon"></i>
               This Month
             </div>
-            <div className="item">
+            <div className="item" data-text="This Year">
               <i className="orange circle icon"></i>
               This Year
             </div>
