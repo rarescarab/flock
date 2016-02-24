@@ -27,9 +27,13 @@ var BoardCardModal = require('./board/BoardCardModal.jsx');
 var App = React.createClass({
   getInitialState: function () {
     return {
-      title: '',
-      description: '',
-      venueId: 0
+      user: {
+        _id: '1234567890',
+        username: 'John Domingo',
+        boards: [],
+        home: 'Oakland, CA'
+      },
+      location: 'San Francisco, CA'
     };
   },
 
@@ -43,7 +47,7 @@ var App = React.createClass({
       .done(function(data) {
         console.log("WORKS!");
         callback(data);
-      }).fail(function(err) {
+        }).fail(function(err) {
         console.log('there was an error')
         callback(err);
       });
