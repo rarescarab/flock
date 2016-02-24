@@ -1,6 +1,8 @@
 ## API keys ##
 client/config/APIKeys.js
 public/config/APIKeys.js
+./config.json
+./config.js
 
 node_modules
 public/lib/
