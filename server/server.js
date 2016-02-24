@@ -1,8 +1,10 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var path = require('path');
 var fs = require('fs');
-Q = require('q');
+
 var mongoose = require('mongoose');
+Q = require('q');
 
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
@@ -14,7 +16,7 @@ var config = require('../webpack.config.js');
 
 var User = require('./models/User');
 var Board = require('./models/Board');
-var Card = require('./models/BoardCard');
+var Card = require('./models/Card');
 
 /* ---------------- */
 /*     PROMISES     */
@@ -22,7 +24,8 @@ var Card = require('./models/BoardCard');
 
 var findUser = Q.nbind(User.findOne, User);
 var createUser = Q.nbind(User.create, User);
-var updateUser = Q.nbind(User.update, User);
+var updateUser = Q.nbind(User.findOneAndUpdate, User);
+var populateUser = Q.nbind(User.populate, User);
 var findBoard = Q.nbind(Board.findOne, Board);
 var findBoards = Q.nbind(Board.find, Board);
 var createBoard = Q.nbind(Board.create, Board);
@@ -46,6 +49,8 @@ db.once('open', function() {
 
 var app = express();
 app.use(express.static(path.resolve(__dirname, '../public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /* ----------- */
 /*     API     */
@@ -125,12 +130,12 @@ app.post('/api/users', function(req, res, next) {
       } else {
         return createUser({
           name: username,
-          uid: uid,
+          userId: uid,
           boards: []
         });
       }
     }).then(function (user) {
-      res.json(201, user);
+      res.status(201).json(user);
     }).fail(function (err) {
       next(err);
     }).done();
@@ -141,34 +146,48 @@ app.post('/api/boards', function(req, res) {
   var img = req.body.img;
   var desc = req.body.desc;
   var uid = req.body.uid;
-  var boards = req.body.boards;
 
-  // perhaps this should happen client side
-  boards.forEach(function (board) {
-    if (board.title === title) {
-      throw new Error('Board already exists');
-    }
-  });
-  boards.push({
-    title: title,
-    headerImage: img,
-    description: desc,
-    userId: uid,
-    boardCardArray: []
-  });
-
-  return updateUser({userId: uid},
-    {boards: boards})
-    .then(function (user) {
-      if (user) {
-        res.json(200, user.boards);
-      } else {
-        throw new Error('User not found');
+	findBoard({title: title, userId: uid}) // change title to permalink
+    .then(function (board) {
+      if (board) {
+				console.error('Board already exists');
+        throw new Error('Board already exists');
       }
-    })
-    .fail(function (err) {
-      throw new Error('Could not update user boards');
-    });
+			return createBoard({
+		    title: title,
+		    headerImage: img,
+		    description: desc,
+		    userId: uid,
+		    cards: []
+		  })
+			.then(function (board) {
+				return updateUser({userId: uid},
+					{$push: {boards: board._id}},
+					{new: true}) // returns updated document
+					.then(function (user) {
+						var opts = [{path: 'boards', model: 'Board'}];
+						populateUser(user, opts)
+							.then(function (populatedUser) {
+								if (populatedUser) {
+									res.status(200).json(populatedUser);
+								}
+						}).fail(function (err) {
+							console.error('Could not populate user boards');
+							throw new Error('Could not populate user boards');
+						});
+					})
+					.fail(function (err) {
+						console.error('Could not update user boards', err);
+						throw new Error('Could not update user boards', err);
+					});
+			}).fail(function (err) {
+				console.error('Could not create new board', err);
+				throw new Error('Could not create new board', err);
+			});
+		}).fail(function (err) {
+			console.error('Could not find board', err);
+			throw new Error('Could not find board', err);
+		});
 });
 
 app.post('/api/cards', function(req, res) {
@@ -180,7 +199,7 @@ app.post('/api/cards', function(req, res) {
   findCard({venueId: venue})
     .then(function (card) {
       if (card) {
-        res.status(200, card);
+        res.status(200).json(card);
       }
     })
     .catch(function (err) {
