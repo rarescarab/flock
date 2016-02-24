@@ -5,6 +5,11 @@ var FOURSQUARE_CLIENT_ID = apiInfo.foursquare.client_ID
 var FOURSQUARE_CLIENT_SECRET = apiInfo.foursquare.client_secret
 
 
+var formStyle = {
+	'margin-top' : '-213px',
+	'display' : 'block !important'
+};
+
 var BoardCardModal = React.createClass({
 
 	getInitialState: function () {
@@ -49,38 +54,31 @@ var BoardCardModal = React.createClass({
 
 	render: function(){
 		return (
-			<div>
-				{/* Collect information about new event
-					Bind should give access of props to the parent for searching */}
-				<form className="newBoardCard"  onClick={this.props.searchPlaces()}>
-
-					<div className="userCardInfo">
-						<input placeholder="Title" name="title" value={this.state.userTitle} onChange={this.handleInputChange}/>
-						<input placeholder="Description" name="description" value={this.state.description} onChange={this.handleInputChange}/>
-						<input placeholder="Date" name="date" value={this.state.date} onChange={this.handleInputChange}/>
-						{/* Get information from App Search places, and save on state/db */}
-					</div>
-
-
-					<div className="fourSquareData">
-						<Search/>
-						 Search will then display all of the results into the bottom div */}
-
-						<div className="searchResults">
-						</div>
-
-						<h3> {this.venueTitle} </h3>
-						<h4> {this.catagory} </h4>
-						<h4> {this.address} </h4>
-					</div>
-
-					<input onSubmit={this.props.onSubmit.bind(null, this)} placeholder="Search"/>
-
-					{/* This button will change the state of submitted to be true */}
-					<button onClick={this.handleClick}> Save Event </button>
-				</form>
-
-			</div>
+			<div className="ui fullscreen modal transition visible active" style={formStyle}>
+		    <i className="close icon"></i>
+		    <div className="header">
+		      Update Your Settings
+		    </div>
+		    <div className="content">
+		      <div className="ui form">
+		        <h4 className="ui dividing header">Give us your feedback</h4>
+		        <div className="field">
+		          <label>Feedback</label>
+		          <textarea></textarea>
+		        </div>
+		        <div className="field">
+		          <div className="ui checkbox">
+		            <input type="checkbox" checked="checked" name="contact-me" tabindex="0" className="hidden"/>
+		            <label>It's okay to contact me.</label>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		    <div className="actions">
+		      <div className="ui button">Cancel</div>
+		      <div className="ui green button">Send</div>
+		    </div>
+		  </div>
 		)
 
 
