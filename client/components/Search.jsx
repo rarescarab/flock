@@ -22,27 +22,27 @@ var Search = React.createClass({
   // handles when user hits 'Enter' key while in search box
   handleSubmit: function (evt) {
     evt.preventDefault();
-    this.props.searchMethod(this.state.value, function(err, result) {
-      if(err) {
-        console.log(err);
+    var query = this.state.value;
+    this.props.searchMethod(query, function(result) {
+      if(!result) {
+        throw new Error('Could not find any results for ' + query);
       } else {
         console.log('inside handleSubmit in Search component');
-        console.log(result);
+        console.log(result.response.venues);
       }
     });
   },
 
   render: function () {
     return (
-      <div className="ui right action left icon input">
-        <i className="search icon"></i>
-        <input type="text" placeholder="Search"/>
-
+      <div className="ui right action search left icon input">
+        <form onSubmit={this.handleSubmit} className="ui right action search left icon input">
+          <i className="search icon"></i>
+          <input onChange={this.handleInputChange} type="text" placeholder="Search"/>
+        </form>
         <div className="ui labeled icon top right pointing dropdown button">
           <i className="marker icon"></i>
-          <span id="locationFilter" className="text">
-            San Francisco
-          </span>
+          <span id="locationFilter" className="text">San Francisco</span>
           <div className="menu">
             <div className="ui search icon input">
               <i className="search icon"></i>
