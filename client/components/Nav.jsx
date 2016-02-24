@@ -3,6 +3,9 @@ var ReactRouter = require('react-router');
 var ReactDOM = require('react-dom');
 var FacebookLogin = require('react-facebook-login');
 
+var apiInfo = require('../../config.js');
+var FACEBOOK_APP_ID = apiInfo.facebook.app_ID
+
 var Search = require('./Search.jsx');
 
 var Nav = React.createClass({

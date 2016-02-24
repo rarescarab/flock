@@ -1,4 +1,4 @@
-//Should we remove this? Won't this be covered by boradCard
+//Should we remove this? Won't this be covered by boardCard
 
 var React = require('react');
 var ReactRouter = require('react-router');
