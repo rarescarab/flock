@@ -1,5 +1,9 @@
 var React = require('react');
 var ReactRouter = require('react-router');
+var apiInfo = require('../../../config.js');
+var FOURSQUARE_CLIENT_ID = apiInfo.foursquare.client_ID
+var FOURSQUARE_CLIENT_SECRET = apiInfo.foursquare.client_secret
+
 
 var BoardCardModal = React.createClass({
 
@@ -64,7 +68,7 @@ var BoardCardModal = React.createClass({
 
 						<div className="searchResults">
 						</div>
-						
+
 						<h3> {this.venueTitle} </h3>
 						<h4> {this.catagory} </h4>
 						<h4> {this.address} </h4>

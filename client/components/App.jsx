@@ -5,6 +5,10 @@ var ReactRouter = require('react-router');
 var configJSON = require('../../config.JSON');
 var configJS = require('../../config.js');
 
+var apiInfo = require('../../config.js');
+var FOURSQUARE_CLIENT_ID = apiInfo.foursquare.client_ID
+var FOURSQUARE_CLIENT_SECRET = apiInfo.foursquare.client_secret
+
 console.log(configJSON);
 
 // main components
