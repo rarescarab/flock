@@ -9,7 +9,54 @@ var Search = React.createClass({
   },
 
   componentDidMount: function () {
-    $('.ui.dropdown').dropdown();
+    $('.ui.dropdown').dropdown({
+      apiSettings: {
+        headers: {'Access-Control-Allow-Origin': '*'},
+        onResponse: function(response, settings) {
+          console.log('=====================>', settings);
+          console.log('GOT A RESPONSE!', JSON.stringify(response));
+        },
+        beforeXHR: function (xhr, settings) {
+          xhr.setRequestHeader ('Access-Control-Allow-Origin', '*');
+          xhr.setRequestHeader ('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+          xhr.setRequestHeader ('Access-Control-Max-Age', 10);
+          xhr.setRequestHeader ('Content-Type', 'application/json');
+          xhr.setRequestHeader ('Access-Control-Allow-Headers', 'Content-Type, Accept');
+          console.log('before XHR:', xhr);
+          console.log('before XHR settings:', settings);
+          return xhr;
+        },
+        successTest: function (response) {
+          console.log('SUCCESS TEST!!:', response);
+        },
+        url: 'http://www.zipcodeapi.com/rest/{key}/info.json/{query}/degrees',
+        dataType: 'json',
+        contentType: 'application/json',
+        throttle: 250,
+        urlData: {
+          key: ZIPCODEAPI_KEY
+        },
+        onResults: function (response, settings) {
+          console.log("=======>ON RESULTS!!!!!!!!!!!!!!!!!!!!!!!! this", this);
+          console.log("response", response);
+          return response;
+        },
+        onSuccess: function (response, element, xhr) {
+          console.log('SOMETHING THOOOO response', response);
+          console.log('SOMETHING THOOOO element', element);
+          console.log('SOMETHING THOOOO xhr', xhr);
+        }
+      },
+      delay: { search: 1000 },
+      fields: {
+        name : 'city',
+        value : 'state'
+      },
+      onChange: function (text, value) {
+        console.log('Look I made it!');
+      }
+    });
+    console.log('init!');
   },
 
   // handles when text is typed into search box
@@ -22,66 +69,40 @@ var Search = React.createClass({
   // handles when user hits 'Enter' key while in search box
   handleSubmit: function (evt) {
     evt.preventDefault();
-    this.props.searchMethod(this.state.value, function(err, result) {
-      if(err) {
-        console.log(err);
+    var query = this.state.value;
+    this.props.searchMethod(query, function(result) {
+      if(!result) {
+        throw new Error('Could not find any results for ' + query);
       } else {
         console.log('inside handleSubmit in Search component');
-        console.log(result);
+        console.log(result.response.venues);
       }
     });
   },
 
   render: function () {
     return (
-      <div className="ui right action left icon input">
-        <i className="search icon"></i>
-        <input type="text" placeholder="Search"/>
-
+      <div className="ui right action search left icon input">
+        <form onSubmit={this.handleSubmit} className="ui right action search left icon input">
+          <i className="search icon"></i>
+          <input onChange={this.handleInputChange} type="text" placeholder="Search"/>
+        </form>
         <div className="ui labeled icon top right pointing dropdown button">
           <i className="marker icon"></i>
-          <span id="locationFilter" className="text">
-            San Francisco
-          </span>
+          <span id="locationFilter" className="text">San Francisco</span>
           <div className="menu">
-            <div className="ui search icon input">
+            <div className="ui search left icon input">
               <i className="search icon"></i>
-              <input type="text" name="search" placeholder="Search issues..."/>
+              <input id="locationSearch" type="text" name="search" placeholder="Search postal code..."/>
             </div>
             <div className="divider"></div>
             <div className="header">
               <i className="tags icon"></i>
-              Filter by tag
+              Recent Locations
             </div>
-            <div className="item">
-              <div className="ui red empty circular label"></div>
-              Important
-            </div>
-            <div className="item">
-              <div className="ui blue empty circular label"></div>
-              Announcement
-            </div>
-            <div className="item">
-              <div className="ui black empty circular label"></div>
-              Discussion
-            </div>
-            <div className="divider"></div>
-            <div className="header">
-              <i className="calendar icon"></i>
-              Filter by date
-            </div>
-            <div className="item">
-              <i className="olive circle icon"></i>
-              This Week
-            </div>
-            <div className="item">
-              <i className="violet circle icon"></i>
-              This Month
-            </div>
-            <div className="item">
-              <i className="orange circle icon"></i>
-              This Year
-            </div>
+            {this.props.locations.map((loc, key) =>
+              <div className="item" data-text={loc} key={key}>{loc}</div>
+            )}
           </div>
         </div>
       </div>

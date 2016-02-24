@@ -20,7 +20,10 @@ var Nav = React.createClass({
               <img className="logo" src="assets/images/logo.svg"></img>
             </a>
             <div className="item" style={searchStyle}>
-              <Search searchMethod={this.props.searchPlace} />
+              <Search
+                searchMethod={this.props.searchPlace}
+                locations={this.props.locations}
+              />
             </div>
             <div id="userMenu" className="ui simple right dropdown item">
               Username<i className="dropdown icon"></i>
