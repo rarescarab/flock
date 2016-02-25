@@ -4,7 +4,7 @@ var path = require('path');
 var fs = require('fs');
 
 var mongoose = require('mongoose');
-Q = require('q');
+var Q = require('q');
 
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
@@ -31,6 +31,8 @@ var findBoards = Q.nbind(Board.find, Board);
 var createBoard = Q.nbind(Board.create, Board);
 var findCard = Q.nbind(Card.findOne, Card);
 var createCard = Q.nbind(Card.create, Card);
+var findCards = Q.nbind(Card.find, Card);
+var populateBoard = Q.nbind(Board.populate, Board);
 
 /* ---------------- */
 /*     DATABASE     */
@@ -103,18 +105,20 @@ app.get('/api/boards', function(req, res) {
 
 app.get('/api/cards', function(req, res) {
   var title = req.body.title;
-  var cardId = req.body.cardId;
+  var board = req.body.board;
+  var boardId = board._id;
+  var cards = board.cards;
 
-  return findBoard({cardId: cardId})
-    .then(function (card) {
-      if (!card) {
-        throw new Error('Card: %s does not exist', card);
-      } else {
-        res.status(200).json(card);
+  var opts = [{path: 'cards', model: 'Card'}];
+  return populateBoard(board, opts)
+    .then(function (populatedBoard) {
+      if (populatedBoard) {
+        res.status(200).json(populatedBoard);
       }
     }).fail(function (err) {
-      res.status(404).json(err);
-    });
+      console.error('Could not populate boards');
+      throw new Error('Could not populate boards');
+  });
 });
 
 // POST REQUESTS //
@@ -191,32 +195,56 @@ app.post('/api/boards', function(req, res) {
 });
 
 app.post('/api/cards', function(req, res) {
-  var title = req.body.title;
-  var desc = req.body.desc;
-  var venue = req.body.venue;
-  var board = req.body.board;
+  var cardTitle = req.body.title;
+  var cardDescription = req.body.description;
+  var cardVenue = req.body.venueId;
+  var cardStartTime = req.body.startTime;
+  var cardImage = req.body.cardImage;
+  var cards = board.cards;
+  var currentCard = cards[0];
 
-  findCard({venueId: venue})
+  // see if the card already exists
+  findCard({cardId: currentCard}) // change title to permalink
     .then(function (card) {
       if (card) {
-        res.status(200).json(card);
+        console.error('Card already exists');
+        throw new Error('Card already exists');
       }
-    })
-    .catch(function (err) {
+      // otherwise create a new card
       return createCard({
-        userTitle: title,
-        description: desc,
-        venueId: venue,
-        createdAt: new Date()
+        userTitle: cardTitle,
+        description: cardDescription,
+        venueId: cardVenue,
+        createdAt: new Date,
+        startTime: null
       })
       .then(function (card) {
-        if (card) {
-          res.status(201).json(card);
-        }
-      })
-      .fail(function (err) {
-        throw new Error('Failed to create card');
+        return updateCard({cardId: currentCard},
+          {$push: {cards: cardId}},
+          {new: true}) // returns updated document
+          .then(function (card) {
+            var opts = [{path: 'cards', model: 'Card'}];
+            populateCard(card, opts)
+              .then(function (populatedCard) {
+                if (populatedCard) {
+                  res.status(200).json(populatedCard);
+                }
+            }).fail(function (err) {
+              console.error('Could not populate card');
+              throw new Error('Could not populate card');
+            });
+          })
+          .fail(function (err) {
+            console.error('Could not update card', err);
+            throw new Error('Could not update card', err);
+          });
+      }).fail(function (err) {
+        console.error('Could not create new card', err);
+        throw new Error('Could not create new card', err);
       });
+    }).fail(function (err) {
+      console.error('Could not find card', err);
+      throw new Error('Could not find card', err);
     });
 });
 
