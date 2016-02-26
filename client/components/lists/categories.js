@@ -1,9 +1,30 @@
-module.exports = [
-	{name: 'Travel',			class: 'red world icon'},
-	{name: 'Weekend',			class: 'orange calendar icon'},
-	{name: 'Adventure',		class: 'green map icon'},
-	{name: 'Shopping',		class: 'blue shop icon'},
-	{name: 'Nightout',		class: 'teal birthday icon'},
-	{name: 'Birthday',		class: 'pink find icon'},
-	{name: 'Sightseeing',	class: 'violet cocktail icon'}
-];
+module.exports = {
+	Travel: {
+		color: 'red',
+		icon: 'world'
+	},
+	Weekend: {
+		color: 'orange',
+		icon: 'calendar'
+	},
+	Adventure: {
+		color: 'green',
+		icon: 'map'
+	},
+	Shopping: {
+		color: 'blue',
+		icon: 'shop'
+	},
+	Nightout: {
+		color: 'teal',
+		icon: 'cocktail'
+	},
+	Birthday: {
+		color: 'pink',
+		icon: 'birthday'
+	},
+	Sightseeing: {
+		color: 'violet',
+		icon: 'find'
+	}
+};
