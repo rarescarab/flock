@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var cardSchema = new mongoose.Schema({
+var venueSchema = new mongoose.Schema({
   venueId: String,
   photoSuffix: String,
   rating: Number,
@@ -22,9 +22,9 @@ var cardSchema = new mongoose.Schema({
   }
 });
 
-cardSchema.virtual('photo')
+venueSchema.virtual('photo')
   .get(function () {
     return 'https://irs0.4sqi.net/img/general/300x300' + this.photoSuffix;
   });
 
-module.exports = mongoose.model('Card', cardSchema);
+module.exports = mongoose.model('Venue', venueSchema);
