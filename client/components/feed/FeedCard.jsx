@@ -3,8 +3,6 @@ var ReactRouter = require('react-router');
 
 var FeedCard = React.createClass({
   componentDidMount: function () {
-    $('.ui.bottom.attached.progress').progress();
-    $('.ui.rating').rating();
     $('.special.cards .image').dimmer({on: 'hover'});
   },
 
