@@ -14,15 +14,14 @@ var Nav = React.createClass({
   },
 
   render: function () {
-    var searchStyle = { width: 60 + '%'};
     return (
       <nav>
-        <div className="ui fixed inverted menu">
-          <div className="ui container">
+        <div className="ui fixed inverted menu" style={{'height': '50px'}}>
+          <div className="ui conctainer">
             <a href="#" className="header item">
               <img className="logo" src="assets/images/logo.svg"></img>
             </a>
-            <div className="item" style={searchStyle}>
+            <div className="item" style={{'width': '60%'}}>
               <Search
                 searchMethod={this.props.searchPlace}
                 locations={this.props.locations}
