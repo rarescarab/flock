@@ -1,4 +1,5 @@
 var Board = require('../models/boardModel');
+var User = require('../models/userModel');
 var Q = require('q');
 
 /* ---------------- */
@@ -8,7 +9,11 @@ var Q = require('q');
 var getBoards = Q.nbind(Board.find, Board);
 var findBoard = Q.nbind(Board.findOne, Board);
 var createBoard = Q.nbind(Board.create, Board);
-var populateBoard = Q.nbind(Board.populate, Board);
+var updateBoard = Q.nbind(Board.findOneAndUpdate, Board);
+var deleteBoard = Q.nbind(Board.findOneAndRemove, Board);
+var populateCards = Q.nbind(Board.populate, Board);
+
+var updateUser = Q.nbind(User.findOneAndUpdate, User);
 
 /* ------------------------ */
 /*     BOARD CONTROLLER     */
@@ -93,13 +98,13 @@ module.exports = {
     /////////////////
     updateOne: function (req, res, next) {},
 
-    ////////////////////
-    // POPULATE CARDS //
-    ////////////////////
-    populateList: function (req, res, next) {},
-
     //////////////////
     // DELETE BOARD //
     //////////////////
     deleteOne: function (req, res, next) {}
+
+    ////////////////////
+    // POPULATE CARDS //
+    ////////////////////
+    populateList: function (req, res, next) {},
   };
