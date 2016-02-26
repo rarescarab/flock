@@ -83,7 +83,7 @@ var Search = React.createClass({
   render: function () {
     return (
       <div className="ui right action search left icon input">
-        <form onSubmit={this.handleSubmit} className="ui right action search left icon input">
+        <form onSubmit={this.handleSubmit} className="ui right action search left icon input" style={{'width': '100%'}}>
           <i className="search icon"></i>
           <input onChange={this.handleInputChange} type="text" placeholder="Search"/>
         </form>
