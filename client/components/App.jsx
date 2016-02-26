@@ -10,21 +10,21 @@ window.ZIPCODEAPI_KEY = apiInfo.zipcode.zipcodeapi_key;
 var mockState = require('./lists/mockState');
 
 // main components
-var Nav = require('./Nav.jsx');
-var Search = require('./Search.jsx');
-var Card = require('./Card.jsx');
+var Nav = require('./Nav');
+var Search = require('./Search');
+var Card = require('./Card');
 // board components
-var Board = require('./board/Board.jsx');
-var BoardCard = require('./board/BoardCard.jsx');
-var BoardCardModal = require('./board/BoardCardModal.jsx');
+var Board = require('./board/Board');
+var BoardCard = require('./board/BoardCard');
+var BoardCardModal = require('./board/BoardCardModal');
 // feed components
-// var AuthModal = require('./feed/AuthModal.jsx');
-// var Feed = require('./feed/Feed.jsx');
-var FeedCard = require('./feed/FeedCard.jsx');
+// var AuthModal = require('./feed/AuthModal');
+var Feed = require('./feed/Feed');
+var FeedCard = require('./feed/FeedCard');
 // user components
-var BoardModal = require('./user/BoardModal.jsx');
-// var User = require('./user/User.jsx');
-// var UserCard = require('./user/UserCard.jsx');
+var BoardModal = require('./user/BoardModal');
+var User = require('./user/User');
+// var UserCard = require('./user/UserCard');
 
 
 var App = React.createClass({
@@ -77,32 +77,24 @@ var App = React.createClass({
   },
 
   render: function () {
-    var containerStyle = {
+    var containStyle = {
       'marginTop': '50px',
       'padding': '20px 30px'
     };
 
     return (
-      <div className="container">
+      <div>
         <Nav
           searchPlace={this.searchPlace}
           explorePlace={this.explorePlace}
           locations={this.state.locations}
         />
-        <main>
-          <div
-            className="ui link four fluid stackable special cards"
-            style={containerStyle}>
-            {
-              this.state.cards.map((card, key) =>
-                <Card data={card} key={key}/>
-              )
-            }
-          </div>
-        </main>
+        <Board board={this.state.boards[2]} venues={this.state.venues} style={containStyle}/>
+        {/*<User user={this.state.user} boards={this.state.boards} venues={this.state.venues} style={containStyle}/>*/}
+        {/*<Feed cards={this.state.cards} venues={this.state.venues} style={containStyle}/>*/}
       </div>
     );
   }
 });
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));
