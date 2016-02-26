@@ -282,7 +282,7 @@ app.put('/api/boards/*', function(req, res) {
   var desc = req.body.desc;
   var uid = req.body.uid;
 
-  // allows update of board name, image, and desc:
+  // allows update of board name, image, and desc
     return updateBoard({uid: uid}, 
       {title: title, img: img, desc: desc, uid: uid}, 
       {new: true})
@@ -305,8 +305,9 @@ app.put('/api/cards/*', function(req, res) {
   var boardId = board._id;
   var cards = board.cards;
 
+  // allows update of card name, desc, venue
   return updateCard({uid: uid}, 
-      {title: title, board: board, img: img, desc: desc, venueId: venueId, cardId: cardId}, 
+      {title: title, board: board, desc: desc, venueId: venueId, cardId: cardId}, 
       {new: true})
     .then(function (card) {
       if (!card) {
