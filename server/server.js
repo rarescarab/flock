@@ -26,13 +26,16 @@ var findUser = Q.nbind(User.findOne, User);
 var createUser = Q.nbind(User.create, User);
 var updateUser = Q.nbind(User.findOneAndUpdate, User);
 var populateUser = Q.nbind(User.populate, User);
+var deleteUser = Q.nbind(User.remove, User);
 var findBoard = Q.nbind(Board.findOne, Board);
 var findBoards = Q.nbind(Board.find, Board);
 var createBoard = Q.nbind(Board.create, Board);
+var populateBoard = Q.nbind(Board.populate, Board);
+var deleteBoard = Q.nbind(Board.remove, Board);
 var findCard = Q.nbind(Card.findOne, Card);
 var createCard = Q.nbind(Card.create, Card);
 var findCards = Q.nbind(Card.find, Card);
-var populateBoard = Q.nbind(Board.populate, Board);
+var deleteCard = Q.nbind(Card.remove, Card);
 
 /* ---------------- */
 /*     DATABASE     */
