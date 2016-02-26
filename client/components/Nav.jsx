@@ -17,7 +17,7 @@ var Nav = React.createClass({
     return (
       <nav>
         <div className="ui fixed inverted menu" style={{'height': '50px'}}>
-          <div className="ui conctainer">
+          <div className="ui container">
             <a href="#" className="header item">
               <img className="logo" src="assets/images/logo.svg"></img>
             </a>
