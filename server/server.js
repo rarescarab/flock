@@ -14,9 +14,17 @@ var config = require('../webpack.config.js');
 /*     MODELS     */
 /* -------------- */
 
-var User = require('./models/User');
-var Board = require('./models/Board');
-var Card = require('./models/Card');
+var User = require('./models/userModel');
+var Board = require('./models/boardModel');
+var Card = require('./models/cardModel');
+
+/* ------------------- */
+/*     CONTROLLERS     */
+/* ------------------- */
+
+var UserController = require('./controllers/userController');
+var BoardController = require('./controllers/boardController');
+var CardController = require('./controllers/cardController');
 
 /* ---------------- */
 /*     PROMISES     */
@@ -28,7 +36,7 @@ var updateUser = Q.nbind(User.findOneAndUpdate, User);
 var populateUser = Q.nbind(User.populate, User);
 var deleteUser = Q.nbind(User.remove, User);
 var findBoard = Q.nbind(Board.findOne, Board);
-var findBoards = Q.nbind(Board.find, Board);
+var getBoards = Q.nbind(Board.find, Board);
 var createBoard = Q.nbind(Board.create, Board);
 var populateBoard = Q.nbind(Board.populate, Board);
 var deleteBoard = Q.nbind(Board.remove, Board);
@@ -45,11 +53,11 @@ mongoose.connect('mongodb://localhost/flock');
 var db = mongoose.connection;
 
 db.on('error', function() {
-	console.error.bind(console, 'Connection Error:');
+  console.error.bind(console, 'Connection Error:');
 });
 
 db.once('open', function() {
-	console.log('MongoDB is open');
+  console.log('MongoDB is open');
 });
 
 var app = express();
@@ -58,9 +66,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 app.use(function (req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	next();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 /* ----------- */
@@ -70,14 +78,14 @@ app.use(function (req, res, next) {
 // GET REQUESTS //
 
 app.get('/', function(req, res) {
-	fs.readFile(path.resolve(__dirname, '../public/index.html'), function(err, data) {
-		if (err) {
+  fs.readFile(path.resolve(__dirname, '../public/index.html'), function(err, data) {
+    if (err) {
       throw new Error(err);
     } else {
       res.writeHead(200, {'Content-Type': 'text/html'});
-		  res.send(data);
+      res.send(data); // need to send facebook key
     }
-	});
+  });
 });
 
 app.get('/api/users/*', function(req, res) {
@@ -101,7 +109,7 @@ app.get('/api/boards', function(req, res) {
   var uid = req.body.uid;
 
   return findBoard({title: board, userId: uid})
-    .then(function (board) {
+  .then(function (board) {
       if (!board) {
         throw new Error('Board: %s does not exist', board);
       } else {
@@ -161,47 +169,47 @@ app.post('/api/boards', function(req, res) {
   var desc = req.body.desc;
   var uid = req.body.uid;
 
-	findBoard({title: title, userId: uid}) // change title to permalink
+  findBoard({title: title, userId: uid}) // change title to permalink
     .then(function (board) {
       if (board) {
-				console.error('Board already exists');
+        console.error('Board already exists');
         throw new Error('Board already exists');
       }
-			return createBoard({
-		    title: title,
-		    headerImage: img,
-		    description: desc,
-		    userId: uid,
-		    cards: []
-		  })
-			.then(function (board) {
-				return updateUser({userId: uid},
-					{$push: {boards: board._id}},
-					{new: true}) // returns updated document
-					.then(function (user) {
-						var opts = [{path: 'boards', model: 'Board'}];
-						populateUser(user, opts)
-							.then(function (populatedUser) {
-								if (populatedUser) {
-									res.status(200).json(populatedUser);
-								}
-						}).fail(function (err) {
-							console.error('Could not populate user boards');
-							throw new Error('Could not populate user boards');
-						});
-					})
-					.fail(function (err) {
-						console.error('Could not update user boards', err);
-						throw new Error('Could not update user boards', err);
-					});
-			}).fail(function (err) {
-				console.error('Could not create new board', err);
-				throw new Error('Could not create new board', err);
-			});
-		}).fail(function (err) {
-			console.error('Could not find board', err);
-			throw new Error('Could not find board', err);
-		});
+      return createBoard({
+        title: title,
+        headerImage: img,
+        description: desc,
+        userId: uid,
+        cards: []
+      })
+      .then(function (board) {
+        return updateUser({userId: uid},
+          {$push: {boards: board._id}},
+          {new: true}) // returns updated document
+          .then(function (user) {
+            var opts = [{path: 'boards', model: 'Board'}];
+            populateUser(user, opts)
+            .then(function (populatedUser) {
+              if (populatedUser) {
+                res.status(200).json(populatedUser);
+              }
+            }).fail(function (err) {
+              console.error('Could not populate user boards');
+              throw new Error('Could not populate user boards');
+            });
+          })
+          .fail(function (err) {
+            console.error('Could not update user boards', err);
+            throw new Error('Could not update user boards', err);
+          });
+        }).fail(function (err) {
+          console.error('Could not create new board', err);
+          throw new Error('Could not create new board', err);
+        });
+      }).fail(function (err) {
+        console.error('Could not find board', err);
+        throw new Error('Could not find board', err);
+      });
 });
 
 app.post('/api/cards', function(req, res) {
@@ -283,8 +291,8 @@ app.put('/api/boards/*', function(req, res) {
   var uid = req.body.uid;
 
   // allows update of board name, image, and desc
-    return updateBoard({uid: uid}, 
-      {title: title, img: img, desc: desc, uid: uid}, 
+    return updateBoard({uid: uid},
+      {title: title, img: img, desc: desc, uid: uid},
       {new: true})
     .then(function (board) {
       if (!board) {
@@ -306,8 +314,8 @@ app.put('/api/cards/*', function(req, res) {
   var cards = board.cards;
 
   // allows update of card name, desc, venue
-  return updateCard({uid: uid}, 
-      {title: title, board: board, desc: desc, venueId: venueId, cardId: cardId}, 
+  return updateCard({uid: uid},
+      {title: title, board: board, desc: desc, venueId: venueId, cardId: cardId},
       {new: true})
     .then(function (card) {
       if (!card) {
@@ -317,7 +325,7 @@ app.put('/api/cards/*', function(req, res) {
       }
     }).fail(function (err) {
       res.status(404).json(err);
-    }); 
+    });
 });
 
 // DELETE REQUESTS //
@@ -335,7 +343,7 @@ new WebpackDevServer(webpack(config), {
   hot: true,
   historyApiFallback: true,
   proxy: {
-  	'*': 'http://localhost:3000'
+    '*': 'http://localhost:3000'
   }
 }).listen(3001, 'localhost', function (err, result) {
   if (err) {
