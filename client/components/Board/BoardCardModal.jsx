@@ -1,17 +1,16 @@
 var React = require('react');
 var ReactRouter = require('react-router');
-var apiInfo = require('../../../config.js');
-var FOURSQUARE_CLIENT_ID = apiInfo.foursquare.client_ID
-var FOURSQUARE_CLIENT_SECRET = apiInfo.foursquare.client_secret
 
+var api = require('../../../config');
 
-var formStyle = {
-	'margin-top' : '-213px',
-	'display' : 'block !important'
-};
+var FOURSQUARE_CLIENT_ID = api.foursquare.client_ID
+var FOURSQUARE_CLIENT_SECRET = api.foursquare.client_secret
+
+/* ----------------- */
+/*     Component     */
+/* ----------------- */
 
 var BoardCardModal = React.createClass({
-
 	getInitialState: function () {
     return {
       userTitle: '',
@@ -53,35 +52,7 @@ var BoardCardModal = React.createClass({
 	},
 
 	render: function(){
-		return (
-			<div className="ui fullscreen modal transition visible active" style={formStyle}>
-		    <i className="close icon"></i>
-		    <div className="header">
-		      Update Your Settings
-		    </div>
-		    <div className="content">
-		      <div className="ui form">
-		        <h4 className="ui dividing header">Give us your feedback</h4>
-		        <div className="field">
-		          <label>Feedback</label>
-		          <textarea></textarea>
-		        </div>
-		        <div className="field">
-		          <div className="ui checkbox">
-		            <input type="checkbox" checked="checked" name="contact-me" tabindex="0" className="hidden"/>
-		            <label>It's okay to contact me.</label>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-		    <div className="actions">
-		      <div className="ui button">Cancel</div>
-		      <div className="ui green button">Send</div>
-		    </div>
-		  </div>
-		)
-
-
+		return;
 	}
 });
 
