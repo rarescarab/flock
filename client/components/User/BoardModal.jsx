@@ -23,6 +23,7 @@ var toggleStyle = {
 
 var BoardModal = React.createClass({
 	componentDidMount: function () {
+		$('#boardModal.ui.modal').modal('hide');
 		$('#categoryDropdown.ui.dropdown').dropdown();
 		$('#privateCardToggle.ui.checkbox').checkbox();
 		$('#flockSelection.ui.selection').dropdown();
@@ -58,12 +59,12 @@ var BoardModal = React.createClass({
 								<div className="default text">What kind of board is it?</div>
 								<i className="dropdown icon"></i>
 								<div className="menu">
-									{categories.map((cat, key) =>
-										<div className="item" data-value={cat.name} data-text={cat.name} key={key}>
-											<i className={cat.class}></i>
-											{cat.name}
-										</div>
-									)}
+									{$.map(categories, function (val, category) {
+									  return (<div className="item" data-value={category} data-text={category} key={category}>
+											<i className={`${val.color} ${val.icon} icon`}></i>
+											{category}
+										</div>)
+									})}
 								</div>
 							</div>
 						</div>{/* Category Dropdown */}
