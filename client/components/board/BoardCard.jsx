@@ -37,20 +37,23 @@ var BoardCard = React.createClass({
 
 	render: function(){
 		return (
-			<div>
-				<div className="userCardInfo">
-					<h4>{this.userTitle} </h4>
-					<p>{this.props.description}</p>
-				</div>
-
-				<div className="fourSquareData">
-					<h3>{this.venueTitle} </h3>
-					<h4>{this.catagory}</h4>
-					<h4>{this.address}</h4>
-				</div>
-
-				<button onClick={this.handleClick}>Remove Card</button>
-
+			<div className="ui segments">
+			  <div className="ui segment">
+			  </div>
+			  <div className="ui horizontal segments">
+			    <div className="ui segment">
+			      <p>Top</p>
+			    </div>
+			    <div className="ui segment">
+			      <p>Middle</p>
+			    </div>
+			    <div className="ui segment">
+			      <p>Bottom</p>
+			    </div>
+			  </div>
+			  <div className="ui segment">
+			    <p>Bottom</p>
+			  </div>
 			</div>
 		)
 	}

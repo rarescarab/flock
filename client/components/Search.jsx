@@ -9,7 +9,7 @@ var Search = React.createClass({
   },
 
   componentDidMount: function () {
-    $('.ui.dropdown').dropdown({
+    $('#zipcodeDropdown').dropdown({
       apiSettings: {
         headers: {'Access-Control-Allow-Origin': '*'},
         onResponse: function(response, settings) {
@@ -83,11 +83,11 @@ var Search = React.createClass({
   render: function () {
     return (
       <div className="ui right action search left icon input">
-        <form onSubmit={this.handleSubmit} className="ui right action search left icon input">
+        <form onSubmit={this.handleSubmit} className="ui right action search left icon input" style={{'width': '100%'}}>
           <i className="search icon"></i>
           <input onChange={this.handleInputChange} type="text" placeholder="Search"/>
         </form>
-        <div className="ui labeled icon top right pointing dropdown button">
+        <div id="zipcodeDropdown" className="ui labeled icon top right pointing dropdown button">
           <i className="marker icon"></i>
           <span id="locationFilter" className="text">San Francisco</span>
           <div className="menu">
