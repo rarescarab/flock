@@ -24,16 +24,60 @@ module.exports = {
 		'Kansas City, Missouri'
 	],
 	boards: [
-		'56cdff21330d76dd1d616c47',
-		'56ce0b812d9c207f28eebd10',
-		'56ce0bb1b1f4acb0283ff589',
-		'56ce0c18b82fed0529f26b06',
-		'56ce0c62b6bc984629387938',
-		'56ce0cfaa131e4be298cfa01',
-		'56ce0ef4ce84a3492b85c7fb',
-		'56ce0fc54c45e6172cf60dc4',
-		'56ce13e3484483a82f1e1a53',
-		'56ce251cf2f1d75732dfb171'
+		{	_id: '56cdff21330d76dd1d616c47',
+			title: 'My Great Big Ice Cream Adventure',
+			description: "This weekend, I'm going to have the biggest fattest ice cream adventure this side of the bay. Join me!",
+			category: 'Adventure',
+			image: 'https://media.giphy.com/media/3o85xJlRU8SJkyEWHe/giphy.gif',
+			creator: '56cdf15bef62061312bfc144',
+			cards: [
+				'506ef69fe4b0eca4bc1d56f8',
+				'4baae1f9f964a520f18b3ae3',
+				'42b21280f964a5206e251fe3',
+				'4eac41a5dab40d132703fc44',
+				'4ae35463f964a520849321e3',
+				'49e22ce6f964a520f9611fe3'
+			]
+		},
+		{	_id: '56ce0b812d9c207f28eebd10',
+			title: '48 Hours in San Francisco',
+			description: "What would you do if you had 48 hours in San Francisco? I know what I'd do! EAT ICE CREAM!! Check out my tots fav places.",
+			category: 'Travel',
+			image: 'https://media.giphy.com/media/xvoTdXXcdfgM8/giphy.gif',
+			creator: '56cdf15bef62061312bfc144',
+			cards: [
+				'506ef69fe4b0eca4bc1d56f8',
+				'4baae1f9f964a520f18b3ae3',
+				'42b21280f964a5206e251fe3',
+				'4eac41a5dab40d132703fc44',
+				'4ae35463f964a520849321e3',
+				'49e22ce6f964a520f9611fe3'
+			]
+		},
+		{	_id: '56ce0bb1b1f4acb0283ff589',
+			title: 'Bachelor Party, clearly',
+			description: "I'm getting married! To ice cream! You're not invited because this is a private event and the only attendee is me but that's alright because it just means more ice cream for me so hah!",
+			category: 'Nightout',
+			image: 'https://media.giphy.com/media/26BkN3VJmiuWL9ZK0/giphy.gif',
+			creator: '56cdf15bef62061312bfc144',
+			cards: [
+				'42b21280f964a5206e251fe3',
+				'4eac41a5dab40d132703fc44',
+				'4ae35463f964a520849321e3',
+				'49e22ce6f964a520f9611fe3'
+			]
+		},
+		{	_id: '56ce0c18b82fed0529f26b06',
+			title: 'Lazy Sunday',
+			description: "Today is a particularly lazy Sunday. I only have energy to go out for two meals today. Better make it count.",
+			category: 'Weekend',
+			image: 'https://media.giphy.com/media/VOW26lAtuVqUg/giphy.gif',
+			creator: '56cdf15bef62061312bfc144',
+			cards: [
+				'506ef69fe4b0eca4bc1d56f8',
+				'4baae1f9f964a520f18b3ae3'
+			]
+		}
 	],
 	cards: [
 		{
@@ -75,7 +119,7 @@ module.exports = {
 				formattedPhone: "(415) 614-9411",
 				facebook: "156884124354769"
 			},
-			url: "http://ghirardelli.com",
+			url: "http://www.greenchilekitchen.com/chilepies",
 			location: {
 				address: "601 Baker St",
 				city: "San Francisco",
@@ -104,7 +148,7 @@ module.exports = {
 				formattedPhone: "(415) 775-6818",
 				facebook: "152678084749323"
 			},
-			url: "http://ghirardelli.com",
+			url: "http://www.swensens.com",
 			location: {
 				address: "1999 Hyde St",
 				city: "San Francisco",
@@ -149,7 +193,7 @@ module.exports = {
 			},
 			hasMenu: true,
 			menu: {
-				externalUrl: "http://swensens.com/menu/"
+				mobileUrl: "https://foursquare.com/v/4eac41a5dab40d132703fc44/device_menu"
 			}
 		},
 		{
@@ -161,7 +205,7 @@ module.exports = {
 			contact: {
 				formattedPhone: "(415) 931-5260"
 			},
-			url: "http://theicecreambarsf.com",
+			canonicalUrl: "https://foursquare.com/v/miyako-old-fashion-ice-cream-shop/4ae35463f964a520849321e3",
 			location: {
 				address: "1460 Fillmore St",
 				city: "San Francisco",
@@ -207,16 +251,18 @@ module.exports = {
 			}
 		}
 	],
-	venues: [
-		{	id: "506ef69fe4b0eca4bc1d56f8",
+	venues: {
+		"506ef69fe4b0eca4bc1d56f8": {
+			name: "Ghirardelli Ice Cream & Chocolate Shop",
 			bestPhoto: {
-				suffix: "https://irs0.4sqi.net/img/general/300x300/3004096_2peBScwmAolATHRJlGTCAhEFDhzqbGT00ruO8PoFDxc.jpg"
+				suffix: "/3004096_2peBScwmAolATHRJlGTCAhEFDhzqbGT00ruO8PoFDxc.jpg"
 			},
 			rating: 8.1,
 			price: {
 				tier: 1,
 				message: "Cheap"
 			},
+			url: "http://ghirardelli.com",
 			hours: {
 				timeframes: [
 					{ days: "Mon–Thu",
@@ -234,7 +280,8 @@ module.exports = {
 				]
 			}
 		},
-		{	id: "4baae1f9f964a520f18b3ae3",
+		"4baae1f9f964a520f18b3ae3": {
+			name: "Chile Pies & Ice Cream",
 			bestPhoto: {
 				suffix: "/12938919_3txDmYfgVTsaBKAajkOPL3bJ2bGBh865cdKkP3HPVgQ.jpg"
 			},
@@ -243,6 +290,7 @@ module.exports = {
 				tier: 2,
 				message: "Moderate"
 			},
+			url: "http://www.greenchilekitchen.com/chilepies",
 			hours: {
 				timeframes: [
 					{ days: "Mon–Sun",
@@ -251,7 +299,8 @@ module.exports = {
 				]
 			}
 		},
-		{ id: "4eac41a5dab40d132703fc44",
+		"4eac41a5dab40d132703fc44": {
+			name: "The Ice Cream Bar Soda Fountain",
 			bestPhoto: {
 				suffix: "/IE5StngDjJBPW6w9MuiTg7WfWIOVhYxbbfcyXur23_w.jpg"
 			},
@@ -260,6 +309,7 @@ module.exports = {
 				tier: 1,
 				message: "Cheap"
 			},
+			url: "http://theicecreambarsf.com",
 			hours: {
 				timeframes: [
 					{ days: "Mon–Sun",
@@ -268,7 +318,8 @@ module.exports = {
 				]
 			}
 		},
-		{ id: "42b21280f964a5206e251fe3",
+		"42b21280f964a5206e251fe3": {
+			name: "Swensen's Ice Cream",
 			bestPhoto: {
 				suffix: "/35139054_R5bV70OX7YLAzURky-usvOlnCb6Oxft-nQD675MYPlU.jpg"
 			},
@@ -277,6 +328,7 @@ module.exports = {
 				tier: 1,
 				message: "Cheap"
 			},
+			url: "http://www.swensens.com",
 			hours: {
 				timeframes: [
 					{ days: "Tue–Thu, Sun",
@@ -288,7 +340,8 @@ module.exports = {
 				]
 			}
 		},
-		{	id: "4ae35463f964a520849321e3",
+		"4ae35463f964a520849321e3": {
+			name: "Miyako Old Fashion Ice Cream Shop",
 			bestPhoto: {
 				suffix: "/186901_leZkhEb458uB-dCpwA6gWDqS7EAF8qqcinEig9eGwm8.jpg"
 			},
@@ -297,6 +350,7 @@ module.exports = {
 				tier: 1,
 				message: "Cheap"
 			},
+			canonicalUrl: "https://foursquare.com/v/miyako-old-fashion-ice-cream-shop/4ae35463f964a520849321e3",
 			hours: {
 				timeframes: [
 					{ days: "Fri",
@@ -316,6 +370,25 @@ module.exports = {
 					}
 				]
 			}
+		},
+		"49e22ce6f964a520f9611fe3": {
+			name: "Mitchell's Ice Cream",
+			bestPhoto: {
+				suffix: "/DOC32ZD1HKEZCCY3I2FVQOD2Y5RR1U5M5S2W3WMBI5RLP0LB.jpg"
+			},
+			rating: 9.3,
+			price: {
+				tier: 1,
+				message: "Cheap"
+			},
+			url: "http://www.mitchellsicecream.com",
+			hours: {
+				timeframes: [
+					{ days: "Mon-Sun",
+						open: [ { renderedTime: "11:00 AM–11:00 PM" } ]
+					}
+				]
+			}
 		}
-	]
+	}
 };
