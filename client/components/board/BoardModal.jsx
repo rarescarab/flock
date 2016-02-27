@@ -10,20 +10,20 @@ var FOURSQUARE_CLIENT_SECRET = api.foursquare.client_secret
 /*     Component     */
 /* ----------------- */
 
-var BoardCardModal = React.createClass({
-	getInitialState: function () {
+var BoardModal = React.createClass({
+  getInitialState: function () {
     return {
       userTitle: '',
-		  description: '',
-		  venueId: 0
+      description: '',
+      venueId: 0
     };
   },
 
   getVenueId: function (){
-	//When the user starts entering information into the search, there will be a drop down
-	//displaying all related results.
-	//When the user clicks on the venue, the id is stored.
-		$.get('https://api.foursquare.com/v2/venues/+'+venueId+'?client_id='+FOURSQUARE_CLIENT_ID+'&client_secret='+FOURSQUARE_CLIENT_SECRET)
+  //When the user starts entering information into the search, there will be a drop down
+  //displaying all related results.
+  //When the user clicks on the venue, the id is stored.
+    $.get('https://api.foursquare.com/v2/venues/+'+venueId+'?client_id='+FOURSQUARE_CLIENT_ID+'&client_secret='+FOURSQUARE_CLIENT_SECRET)
       .done(function (data) {
         console.log("WORKS!");
         callback(data);
@@ -33,27 +33,27 @@ var BoardCardModal = React.createClass({
     });
   },
 
-	handleClick:function (e){
-		// var newCard = this.state;
-		// BoardCard.save(newCard, function (err, result) {
-		// 	if(err) {
-		// 		console.log(err);
-		// 	} else {
-		// 		this.props.searchById(this.state.venueId, function (err, result) {
-		// 			if(err) {
-		// 				console.log(err);
-		// 			} else {
-		// 				console.log('result of searchbyid', result);
-		// 			}
-		// 		});
-		// 	}
-		// });
+  handleClick:function (e){
+    // var newCard = this.state;
+    // BoardCard.save(newCard, function (err, result) {
+    //   if(err) {
+    //     console.log(err);
+    //   } else {
+    //     this.props.searchById(this.state.venueId, function (err, result) {
+    //       if(err) {
+    //         console.log(err);
+    //       } else {
+    //         console.log('result of searchbyid', result);
+    //       }
+    //     });
+    //   }
+    // });
 
-	},
+  },
 
-	render: function(){
-		return;
-	}
+  render: function(){
+    return;
+  }
 });
 
-module.exports = BoardCardModal;
+module.exports = BoardModal;
