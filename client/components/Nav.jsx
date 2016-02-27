@@ -28,7 +28,6 @@ var Nav = React.createClass({
           <Link to="/user">User</Link>
           <Link to="/board">Board</Link>
           <Link to="/feed">Feed</Link>
-
           <div className="ui container">
             <a href="#" className="header item">
               <img className="logo" src="assets/images/logo.svg"></img>
