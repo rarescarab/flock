@@ -94,7 +94,6 @@ var App = React.createClass({
           locations={this.state.locations}
         />
         {children || <Home/>}
-        <Feed cards={this.state.cards} venues={this.state.venues} style={containStyle}/>
       </div>
     );
   }
