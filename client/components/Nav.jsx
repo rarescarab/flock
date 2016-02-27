@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var ReactDOM = require('react-dom');
-import { IndexLink, Link } from 'react-router';
+import { Link } from 'react-router';
 var FacebookLogin = require('react-facebook-login');
 
 var apiInfo = require('../../config.js');

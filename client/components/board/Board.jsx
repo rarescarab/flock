@@ -2,9 +2,9 @@ var React = require('react');
 var ReactRouter = require('react-router');
 
 var Card = require('../Card');
-var BoardModal = require('../user/BoardModal');
+var UserModal = require('../user/UserModal');
 var BoardCard = require('./BoardCard');
-var BoardCardModal = require('./BoardCardModal');
+var BoardModal = require('./BoardModal');
 
 var Board = React.createClass({
 	propTypes: {
@@ -67,7 +67,7 @@ var Board = React.createClass({
 					</div>
 				</main>
 
-				<BoardModal/>
+				<UserModal/>
 			</section>
 		)
 	}
