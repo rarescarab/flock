@@ -1,9 +1,22 @@
-var User = require('../constrollers/userController');
+var path = require('path');
+var fs = require('fs');
+
+var User = require('../controllers/userController');
 var Board = require('../controllers/boardController');
 var Card = require('../controllers/cardController');
 var Venue = require('../controllers/venueController');
 
 module.exports = function (app, express) {
+  app.get('/', function(req, res) {
+    fs.readFile(path.resolve(__dirname, '../../public/index.html'), function(err, data) {
+      if (err) {
+        throw new Error(err);
+      }
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.send(data); // need to send facebook key
+    });
+  });
+
   app.get('/api/users', User.fetchOne);
   app.post('/api/users', User.createOne);
   app.put('/api/users', User.updateOne);
