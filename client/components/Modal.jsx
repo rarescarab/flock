@@ -23,13 +23,16 @@ var toggleStyle = {
 
 var BoardModal = React.createClass({
   componentDidMount: function () {
-    $('#boardModal.ui.modal').modal('hide');
-    $('#categoryDropdown.ui.dropdown').dropdown();
+    this.closeModal();
     $('#privateCardToggle.ui.checkbox').checkbox();
     $('#flockSelection.ui.selection').dropdown();
   },
 
-  handleSubmit: function(evt) {
+  handleSubmit: function (evt) {
+  },
+
+  closeModal: function (evt) {
+    $('#boardModal.ui.modal').modal('hide');
   },
 
   render: function () {
@@ -53,11 +56,12 @@ var BoardModal = React.createClass({
 
             {this.props.children}
 
+            <div className="ui divider"></div>
             <div className="ui grid field">
               <label className="three wide column">Secret</label>
               <div className="thirteen wide column field" style={toggleStyle}>
                 <div id="privateCardToggle" className="ui toggle checkbox">
-                  <label></label>
+                  <label>Only you and your flock will be able to see this board</label>
                   <input name="chkSecret" type="checkbox" tabIndex="0" className="hidden"/>
                 </div>
               </div>
@@ -81,12 +85,11 @@ var BoardModal = React.createClass({
                 </div>
               </div>
             </div>{/* Flock Dropdown */}
-
           </div>{/* Form */}
         </div>{/* Modal Content */}
         <div className="actions">
-          <div onSubmit={handleSubmit} className="ui button">Cancel</div>
-          <div className="ui green button">Send</div>
+          <div className="ui button">Cancel</div>
+          <div className="ui green button">Create</div>
         </div>{/* Modal Footer */}
       </div>
     );
