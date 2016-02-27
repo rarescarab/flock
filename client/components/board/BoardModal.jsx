@@ -10,7 +10,7 @@ var FOURSQUARE_CLIENT_SECRET = api.foursquare.client_secret
 /*     Component     */
 /* ----------------- */
 
-var BoardCardModal = React.createClass({
+var BoardModal = React.createClass({
   getInitialState: function () {
     return {
       userTitle: '',
@@ -56,4 +56,4 @@ var BoardCardModal = React.createClass({
   }
 });
 
-module.exports = BoardCardModal;
+module.exports = BoardModal;
