@@ -21,7 +21,7 @@ var toggleStyle = {
 /*     Component     */
 /* ----------------- */
 
-var BoardModal = React.createClass({
+var UserModal = React.createClass({
   componentDidMount: function () {
     $('#categoryDropdown.ui.dropdown').dropdown();
   },
