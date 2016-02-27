@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var ReactRouter = require('react-router');
+import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
+
 
 var apiInfo = require('../../config');
 window.FOURSQUARE_CLIENT_ID = apiInfo.foursquare.client_ID;
@@ -26,6 +27,8 @@ var BoardModal = require('./user/BoardModal');
 var User = require('./user/User');
 // var UserCard = require('./user/UserCard');
 
+// test component
+var Home = require('./Home');
 
 var App = React.createClass({
   getInitialState: function () {
@@ -77,10 +80,11 @@ var App = React.createClass({
   },
 
   render: function () {
-    var containStyle = {
-      'marginTop': '50px',
-      'padding': '20px 30px'
-    };
+    // console logs to make sure children is getting populated
+    // console.log('this.state', this.state);
+    // console.log('this.props: ', this.props);
+    // console.log('children: ', this.props.children);
+    var children = React.cloneElement(this.props.children, { status: this.state });
 
     return (
       <div>
@@ -89,12 +93,60 @@ var App = React.createClass({
           explorePlace={this.explorePlace}
           locations={this.state.locations}
         />
-        <Board board={this.state.boards[2]} venues={this.state.venues} style={containStyle}/>
-        {/*<User user={this.state.user} boards={this.state.boards} venues={this.state.venues} style={containStyle}/>*/}
-        {/*<Feed cards={this.state.cards} venues={this.state.venues} style={containStyle}/>*/}
+        {children || <Home/>}
+        <Feed cards={this.state.cards} venues={this.state.venues} style={containStyle}/>
       </div>
     );
   }
 });
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+var containStyle = {
+  'marginTop': '50px',
+  'padding': '20px 30px'
+};
+
+var BoardHandler = React.createClass({
+  render: function () {
+    return (
+      <div>
+      {console.log('inside BoardHandler', this.props.status)}
+      <Board board={this.props.status.boards[2]} venues={this.props.status.venues} style={containStyle}/>
+      </div>
+    )
+  }
+});
+
+var UserHandler = React.createClass({
+  render: function () {
+    return (
+      <div>
+      {console.log('inside UserHandler', this.props.status)}
+      <User user={this.props.status.user} boards={this.props.status.boards} venues={this.props.status.venues} style={containStyle}/>
+      </div>
+    )
+  }
+});
+
+var FeedHandler = React.createClass({
+  render: function () {
+    return (
+      <div>
+      {console.log('inside FeedHandler', this.props.status)}
+      <Feed cards={this.props.status.cards} venues={this.props.status.venues} style={containStyle}/>
+      </div>
+    )
+  }
+});
+
+ReactDOM.render(
+  <Router history={hashHistory}>
+    <Route path="/" component={App}>
+      {console.log('inside Router')};
+      <IndexRoute component={Home} />
+      <Route path="/board" component={BoardHandler} />
+      <Route path="/user" component={UserHandler}/>
+      <Route path="/feed" component={FeedHandler} />
+      </Route>
+  </Router>, 
+  document.getElementById('app')
+);
