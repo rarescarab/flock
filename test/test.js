@@ -8,12 +8,4 @@ describe('server', function() {
       done();
     });
   });
-
-  it('should send back parsable stringified JSON', function(done) {
-    request('http://localhost:3001/#/*', function(error, response, body) {
-      expect(JSON.parse.bind(this, body)).to.not.throw();
-      done();
-    });
-  });
-
 });
