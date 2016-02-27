@@ -141,7 +141,7 @@ request.body = {
 │   │   │   ├── Board.jsx
 │   │   │   ├── BoardCard.jsx
 │   │   │   ├── BoardCardModal.jsx
-│   │   ├── main
+│   │   ├── feed
 │   │   │   ├── AuthModal.jsx
 │   │   │   ├── Feed.jsx
 │   │   │   ├── FeedCard.jsx
@@ -151,6 +151,8 @@ request.body = {
 │   │   │   ├── BoardModal.jsx
 │   └── lib
 │   └── config
+│   │   ├── facebookAuth.js
+│   │   ├── foursquareAPI.js
 ├── server
 │   └── config.js
 ├── public
