@@ -1,23 +1,17 @@
-var supertest = require("supertest");
-var should = require("should");
+var request = require('request');
+var expect = require('chai').expect;
 
-// This refers to PORT where program is runninng.
-var server = supertest.agent("http://localhost:3001");
+describe('server', function() {
+  it('should respond to GET requests for the homepage with a 200 status code', function(done) {
+    request('http://localhost:3001/#/*', function(error, response, body) {
+      expect(response.statusCode).to.equal(200);
+      done();
+    });
+  });
 
-describe("Homepage GET request ",function(){
-
-  it("should return homepage and status-code 200",function(done){
-
-    // calling home page api
-    server
-    .get("http://localhost:3001/#/*")
-    .expect("Content-type",/json/)
-    .expect(200)
-    .end(function(err, res){
-      // HTTP status should be 200
-      res.status.should.equal(200);
-      // Error key should be false.
-      res.body.error.should.equal(false);
+  it('should send back parsable stringified JSON', function(done) {
+    request('http://localhost:3001/#/*', function(error, response, body) {
+      expect(JSON.parse.bind(this, body)).to.not.throw();
       done();
     });
   });
