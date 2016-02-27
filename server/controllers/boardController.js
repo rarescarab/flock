@@ -101,10 +101,10 @@ module.exports = {
     //////////////////
     // DELETE BOARD //
     //////////////////
-    deleteOne: function (req, res, next) {}
+    deleteOne: function (req, res, next) {},
 
     ////////////////////
     // POPULATE CARDS //
     ////////////////////
-    populateList: function (req, res, next) {},
+    populateList: function (req, res, next) {}
   };

@@ -67,12 +67,12 @@ module.exports = {
   /////////////////
   // UPDATE USER //
   /////////////////
-  updateOne: function (req, res, next) {}
+  updateOne: function (req, res, next) {},
 
   //////////////////
   // DELETE USER //
   //////////////////
-  deleteOne: function (req, res, next) {}
+  deleteOne: function (req, res, next) {},
 
   //////////////////////////
   // POPULATE USER BOARDS //
