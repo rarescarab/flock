@@ -48,7 +48,7 @@
     "type": "git",
     "url": "git+https://github.com/rarescarab/flock.git"
   },
-  "author": [
+  "contributors": [
     "Andrew Bresee",
     "Benny Hung",
     "John Domingo",
