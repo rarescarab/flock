@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-var User = require('./User');
-var Card = require('./Card');
+var User = require('./userModel');
+var Card = require('./cardModel');
 var Venue = require('./venueModel');
 
 var boardSchema = new mongoose.Schema({
