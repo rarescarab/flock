@@ -4,7 +4,7 @@ var ReactDOM = require('react-dom');
 import { Link } from 'react-router';
 var FacebookLogin = require('react-facebook-login');
 
-var apiInfo = require('../../config.js');
+var apiInfo = require('../../config');
 var FACEBOOK_APP_ID = apiInfo.facebook.app_ID
 
 var Search = require('./Search.jsx');
