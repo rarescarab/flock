@@ -1,5 +1,5 @@
 var React = require('react');
-var Nav = require('./Nav.jsx');
+var Nav = require('./Nav');
 import { Link } from 'react-router';
 
 var Home = React.createClass({
