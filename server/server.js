@@ -26,13 +26,16 @@ var findUser = Q.nbind(User.findOne, User);
 var createUser = Q.nbind(User.create, User);
 var updateUser = Q.nbind(User.findOneAndUpdate, User);
 var populateUser = Q.nbind(User.populate, User);
+var deleteUser = Q.nbind(User.remove, User);
 var findBoard = Q.nbind(Board.findOne, Board);
 var findBoards = Q.nbind(Board.find, Board);
 var createBoard = Q.nbind(Board.create, Board);
+var populateBoard = Q.nbind(Board.populate, Board);
+var deleteBoard = Q.nbind(Board.remove, Board);
 var findCard = Q.nbind(Card.findOne, Card);
 var createCard = Q.nbind(Card.create, Card);
 var findCards = Q.nbind(Card.find, Card);
-var populateBoard = Q.nbind(Board.populate, Board);
+var deleteCard = Q.nbind(Card.remove, Card);
 
 /* ---------------- */
 /*     DATABASE     */
@@ -113,6 +116,7 @@ app.get('/api/cards', function(req, res) {
   var title = req.body.title;
   var board = req.body.board;
   var boardId = board._id;
+  var venueId = req.body.venueId;
   var cards = board.cards;
 
   var opts = [{path: 'cards', model: 'Card'}];
@@ -255,9 +259,66 @@ app.post('/api/cards', function(req, res) {
 });
 
 // PUT REQUESTS //
-app.put('/api/users/*', function(req, res) {});
-app.put('/api/boards/*', function(req, res) {});
-app.put('/api/cards/*', function(req, res) {});
+app.put('/api/users/*', function(req, res) {
+  var name = req.params[0];
+  var uid = req.body.uid;
+
+  // allows update of username
+  return updateUser({uid: uid}, {name: name, uid: uid})
+    .then(function (user) {
+      if (!user) {
+        throw new Error('User: %s does not exist', user);
+      } else {
+        res.status(200).json(user);
+      }
+    }).fail(function (err) {
+      res.status(404).json(err);
+    });
+});
+
+app.put('/api/boards/*', function(req, res) {
+  var title = req.body.title;
+  var img = req.body.img;
+  var desc = req.body.desc;
+  var uid = req.body.uid;
+
+  // allows update of board name, image, and desc
+    return updateBoard({uid: uid}, 
+      {title: title, img: img, desc: desc, uid: uid}, 
+      {new: true})
+    .then(function (board) {
+      if (!board) {
+        throw new Error('Board: %s does not exist', board);
+      } else {
+        res.status(200).json(board);
+      }
+    }).fail(function (err) {
+      res.status(404).json(err);
+    });
+});
+
+app.put('/api/cards/*', function(req, res) {
+  var title = req.body.title;
+  var board = req.body.board;
+  var cardId = req.body._id;
+  var venueId = req.body.venueId;
+  var boardId = board._id;
+  var cards = board.cards;
+
+  // allows update of card name, desc, venue
+  return updateCard({uid: uid}, 
+      {title: title, board: board, desc: desc, venueId: venueId, cardId: cardId}, 
+      {new: true})
+    .then(function (card) {
+      if (!card) {
+        throw new Error('Card: %s does not exist', card);
+      } else {
+        res.status(200).json(card);
+      }
+    }).fail(function (err) {
+      res.status(404).json(err);
+    }); 
+});
 
 // DELETE REQUESTS //
 app.delete('/api/users/*', function(req, res) {});
