@@ -2,8 +2,8 @@ var React = require('react');
 var ReactRouter = require('react-router');
 
 var Card = require('../Card');
-var UserModal = require('../user/UserModal');
 var BoardCard = require('./BoardCard');
+var Modal = require('../Modal');
 var BoardModal = require('./BoardModal');
 
 var Board = React.createClass({
@@ -67,10 +67,10 @@ var Board = React.createClass({
           </div>
         </main>
 
-        <UserModal/>
-      </section>
-    )
-  }
+				<Modal/>
+			</section>
+		)
+	}
 });
 
 module.exports = Board;

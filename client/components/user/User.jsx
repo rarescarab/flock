@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 
-var Card = require('../Card');
-var UserCard = require('./UserCard')
-var UserModal = require('./UserModal');
+var Card = require('../Card.jsx');
+var UserCard = require('./UserCard.jsx')
+var UserModal = require('../user/UserModal.jsx');
 
 var User = React.createClass({
   propTypes: {

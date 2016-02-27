@@ -21,12 +21,8 @@ var BoardModal = require('./board/BoardModal');
 // feed components
 var AuthModal = require('./feed/AuthModal');
 var Feed = require('./feed/Feed');
-var FeedCard = require('./feed/FeedCard');
-// user components
+// user component
 var User = require('./user/User');
-var UserCard = require('./user/UserCard');
-var UserModal = require('./user/UserModal');
-
 // test component
 var Home = require('./Home');
 
@@ -50,7 +46,7 @@ var App = React.createClass({
         callback(err);
       });
 
-    //Query will come from BoardCardModal.
+    //Query will come from BoardModal.
     console.log('Searching Place...');
     return;
   },
@@ -68,7 +64,7 @@ var App = React.createClass({
         callback(err);
       });
 
-    //Query will come from BoardCardModal.
+    //Query will come from BoardModal.
     console.log('Searching Venue...');
     return;
   },
@@ -146,6 +142,6 @@ ReactDOM.render(
       <Route path="/user" component={UserHandler}/>
       <Route path="/feed" component={FeedHandler} />
       </Route>
-  </Router>, 
+  </Router>,
   document.getElementById('app')
 );
