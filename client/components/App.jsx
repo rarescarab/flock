@@ -17,15 +17,15 @@ var Card = require('./Card');
 // board components
 var Board = require('./board/Board');
 var BoardCard = require('./board/BoardCard');
-var BoardCardModal = require('./board/BoardCardModal');
+var BoardModal = require('./board/BoardModal');
 // feed components
-// var AuthModal = require('./feed/AuthModal');
+var AuthModal = require('./feed/AuthModal');
 var Feed = require('./feed/Feed');
 var FeedCard = require('./feed/FeedCard');
 // user components
-var BoardModal = require('./user/BoardModal');
 var User = require('./user/User');
-// var UserCard = require('./user/UserCard');
+var UserCard = require('./user/UserCard');
+var UserModal = require('./user/UserModal');
 
 // test component
 var Home = require('./Home');
