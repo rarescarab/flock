@@ -67,7 +67,9 @@ var Board = React.createClass({
           </div>
         </main>
 
-				<Modal/>
+				<Modal>
+          <BoardModal/>
+        </Modal>
 			</section>
 		)
 	}
