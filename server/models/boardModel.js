@@ -7,10 +7,10 @@ var Venue = require('./venueModel');
 
 var boardSchema = new mongoose.Schema({
   title: String,
-  image: String,
   description: String,
+  image: String,
   category: String,
-  permalink: String,
+  permalink: : {type: String, required: true, unique: true},
   userId: {type: String, ref: User},
   cards: [{type: ObjectId, ref: Card}]
 });
