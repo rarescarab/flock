@@ -4,22 +4,17 @@ var venueSchema = new mongoose.Schema({
   venueId: String,
   photoSuffix: String,
   rating: Number,
+  price: Number,
+  tier: String,
   hours: [{
     days: String,
-    open: [{
-      time: String
-    }]
+    open: [{ time: String }]
   }],
   createdAt: Date,
   updatedAt: Date
-  },
-  {
-    toObject: {
-    virtuals: true
-  },
-    toJSON: {
-    virtuals: true
-  }
+}, {
+  toObject: { virtuals: true },
+  toJSON: { virtuals: true }
 });
 
 venueSchema.virtual('photo')

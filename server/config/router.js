@@ -22,7 +22,6 @@ module.exports = function (app, express) {
   app.delete('/api/cards', Card.removeOne);
 
   app.get('/api/venues', Venue.fetchOne);
-  app.post('/api/venues', Venue.createOne);
   app.put('/api/venues', Venue.updateOne);
   app.delete('/api/venues', Venue.removeOne);
 

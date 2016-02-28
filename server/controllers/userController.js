@@ -21,7 +21,7 @@ module.exports = {
   // FETCH USER //
   ////////////////
   fetchOne: function (req, res, next) {
-    var username = req.param('username');
+    var username = req.query.username;
 
     findUser({username: username})
     .then(function (user) {
@@ -52,7 +52,7 @@ module.exports = {
         populateBoards(user, opts)
         .then(function (populatedUser) {
           if (populatedUser) {
-            res.status(201).json(populatedUser);
+            res.status(200).json(populatedUser);
           }
         }).fail(function (err) {
           console.error('Could not populate user boards');
@@ -100,7 +100,7 @@ module.exports = {
         populateBoards(user, opts)
         .then(function (populatedUser) {
           if (populatedUser) {
-            res.status(201).json(populatedUser);
+            res.status(200).json(populatedUser);
           }
         }).fail(function (err) {
           console.error('Could not populate user boards');
@@ -122,7 +122,7 @@ module.exports = {
 
     removeUser({_id: uid})
     .then(function (status) {
-      res.status(201).json(status);
+      res.status(200).json(status);
     })
     .fail(function (err) {
       console.error('Could not delete user');
