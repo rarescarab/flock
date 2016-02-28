@@ -12,7 +12,7 @@ var createBoard = Q.nbind(Board.create, Board);
 var updateBoard = Q.nbind(Board.findOneAndUpdate, Board);
 var removeBoard = Q.nbind(Board.findOneAndRemove, Board);
 var populateCards = Q.nbind(Board.populate, Board);
-
+var populateUser = Q.nbind(User.populate, User);
 var updateUser = Q.nbind(User.findOneAndUpdate, User);
 
 /* ------------------------ */
@@ -25,6 +25,8 @@ module.exports = {
   /////////////////
 
   fetchOne: function (req, res, next) {
+    console.log("GET REQUEST GOT!! : ", req.body);
+
     var board = req.body.board;
     var uid = req.body.uid;
 
