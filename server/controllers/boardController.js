@@ -49,9 +49,12 @@ module.exports = {
   createOne: function (req, res, next) {
     console.log("POST REQUEST! : ", req.body)
     var title = req.body.title;
-    var img = req.body.img;
     var desc = req.body.desc;
+    var img = req.body.img;
+    var category = req.body.category;
+    var permalink = req.body.permalink;
     var uid = req.body.uid;
+    var cards = req.body.cards;
 
     findBoard({permalink: title, username: username}) // change title to permalink
     .then(function (board) {
@@ -61,8 +64,10 @@ module.exports = {
       }
       createBoard({ // might need return statement
         title: title,
-        headerImage: img,
         description: desc,
+        headerImage: img,
+        category: category,
+        permalink: permalink,
         userId: uid,
         cards: []
       })
