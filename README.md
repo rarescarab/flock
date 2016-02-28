@@ -186,7 +186,7 @@ DELETE requests remove persisted venue documents in the database. A venueId is r
 │   │   │   ├── Board.jsx
 │   │   │   ├── BoardCard.jsx
 │   │   │   ├── BoardCardModal.jsx
-│   │   ├── main
+│   │   ├── feed
 │   │   │   ├── AuthModal.jsx
 │   │   │   ├── Feed.jsx
 │   │   │   ├── FeedCard.jsx
@@ -196,6 +196,8 @@ DELETE requests remove persisted venue documents in the database. A venueId is r
 │   │   │   ├── BoardModal.jsx
 │   └── lib
 │   └── config
+│   │   ├── facebookAuth.js
+│   │   ├── foursquareAPI.js
 ├── server
 │   └── config.js
 ├── public

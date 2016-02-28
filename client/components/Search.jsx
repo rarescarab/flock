@@ -1,5 +1,8 @@
 var React = require('react');
 var ReactRouter = require('react-router');
+var apiInfo = require('../../config.js');
+var ZIPCODEAPI_KEY = apiInfo.zipcode.zipcodeapi_key;
+
 
 var Search = React.createClass({
   getInitialState: function () {
