@@ -17,7 +17,7 @@ var populateVenues = Q.nbind(Card.populate, Card);
 var updateBoard = Q.nbind(Board.findOneAndUpdate, Board);
 
 /* ----------------------- */
-/*     USER CONTROLLER     */
+/*     CARD CONTROLLER     */
 /* ----------------------- */
 
 module.exports = {
@@ -106,10 +106,39 @@ module.exports = {
     /////////////////
     // UPDATE CARD //
     /////////////////
-    updateOne: function (req, res, next) {},
+    updateOne: function (req, res, next) {
+      var update = req.body;
+      var uid = update.id;
+      delete update.id;
+      delete update.createdAt;
+
+      // allows update of card name, desc, venue
+      updateCard({_id: uid}, update, {new: true})
+      .then(function (card) {
+        if (!card) {
+          throw new Error('Card: %s does not exist', card);
+        } else {
+          res.status(201).json(card);
+        }u
+      }).fail(function (err) {
+        console.log('Card does not exist');
+        throw new Error('Card does not exist');
+      }); 
+    },
 
     /////////////////
     // REMOVE CARD //
     /////////////////
-    removeOne: function (req, res, next) {}
+    removeOne: function (req, res, next) {
+      var uid = req.body.id;
+
+      removeCard({_id: uid})
+      .then(function (status) {
+        res.status(201).json(status);
+      })
+      .fail(function (err) {
+        console.error('Could not delete card');
+        throw new Error('Could not delete card');
+      });
+    }
   };
