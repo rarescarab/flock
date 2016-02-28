@@ -119,7 +119,7 @@ module.exports = {
           throw new Error('Card: %s does not exist', card);
         } else {
           res.status(201).json(card);
-        }
+        }u
       }).fail(function (err) {
         console.log('Card does not exist');
         throw new Error('Card does not exist');
@@ -129,5 +129,16 @@ module.exports = {
     /////////////////
     // REMOVE CARD //
     /////////////////
-    removeOne: function (req, res, next) {}
+    removeOne: function (req, res, next) {
+      var uid = req.body.id;
+
+      removeCard({_.id = uid})
+      .then(function (status) {
+        res.status(201).json(status);
+      })
+      .fail(function (err) {
+        console.error('Could not delete card');
+        throw new Error('Could not delete card');
+      });
+    }
   };
