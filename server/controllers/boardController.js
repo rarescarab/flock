@@ -47,6 +47,7 @@ module.exports = {
   //////////////////
 
   createOne: function (req, res, next) {
+    console.log("POST REQUEST! : ", req.body)
     var title = req.body.title;
     var img = req.body.img;
     var desc = req.body.desc;

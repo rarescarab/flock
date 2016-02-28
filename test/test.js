@@ -32,6 +32,9 @@ describe('server', function() {
       desc: 'A fun NEW place',
       uid: '123424245' }
   };
+  //The place gets posted. But how can we check? How do we do a GET request with params?
+  //How do we then clear the database to be used again later?
+
 
     request(requestParams, function(error, response, body) {
       expect(response.statusCode).to.equal(201);
@@ -44,6 +47,13 @@ describe('server', function() {
   request('http://localhost:3001/api/boards', function(error, response, body) {
     expect(response.statusCode).to.equal(200);
     done();
+  });
+});
+
+app.get('http://localhost:3001/api/boards', function(req, res) {  
+  res.json({
+    count: count,
+    message: 'oh boy, ' + count + ' pickles!'
   });
 });
 
