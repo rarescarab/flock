@@ -6,7 +6,7 @@ var Board = require('./boardModel');
 var userSchema = new mongoose.Schema({
   authId: String,
   name: String,
-  username: String,
+  username: {type: String, required: true, unique: true},
   boards: [{type: ObjectId, ref: Board}]
 });
 
