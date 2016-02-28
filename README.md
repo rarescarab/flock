@@ -13,9 +13,9 @@ The following outlines server-side requests that can be sent to the Flock API.
 ### Users
 
 ##### GET
-Endpoint: `/api/users/:id`
+Endpoint: `/api/users/:username`
 
-Append the user's unique MongoDB-generated ID to the URL (accessed by `request.params.id`). The response sends back a JSON object containing the user's ID, name, username, and an array of populated boards.
+Append the username to the URL path (accessed by `request.params.username`). The response sends back a JSON object containing the user's ID, name, username, and an array of populated boards.
 
 ##### POST
 Endpoint: `/api/users`
