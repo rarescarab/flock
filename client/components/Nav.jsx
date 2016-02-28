@@ -11,7 +11,19 @@ var Search = require('./Search.jsx');
 
 var Nav = React.createClass({
   responseFacebook: function (response) {
-    console.log(response);
+    var username = response.name.replace(/\s+/g, '').toLowerCase();;
+    console.log('UID: ', response.id, 'NAME: ', response.name, 'USERNAME: ', username);
+    $.post('/api/users', { 
+      uid: response.id, 
+      name: response.name,
+      username: username
+    })
+    .done(function (user) {
+      
+    })
+    .fail(function (err) {
+      console.log('There was an error!');
+    });
   },
 
   logout: function () {
