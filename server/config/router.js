@@ -6,10 +6,6 @@ var Card = require('../controllers/cardController');
 var Venue = require('../controllers/venueController');
 
 module.exports = function (app, express) {
-  app.get('/', function(req, res) {
-    res.status(200).sendFile(path.resolve(__dirname, '../../public/index.html'));
-  });
-
   app.get('/api/users', User.fetchOne);
   app.post('/api/users', User.createOne);
   app.put('/api/users', User.updateOne);
@@ -31,4 +27,12 @@ module.exports = function (app, express) {
   app.post('/api/venues', Venue.createOne);
   app.put('/api/venues', Venue.updateOne);
   app.delete('/api/venues', Venue.deleteOne);
+
+  app.get('/*/*', function(req, res) {
+    res.status(200).sendFile(path.resolve(__dirname, '../../public/index.html'));
+  });
+
+  app.get('/*', function(req, res) {
+    res.status(200).sendFile(path.resolve(__dirname, '../../public/index.html'));
+  });
 };
