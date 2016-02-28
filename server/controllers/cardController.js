@@ -11,7 +11,7 @@ var getCards = Q.nbind(Card.find, Card);
 var findCard = Q.nbind(Card.findOne, Card);
 var createCard = Q.nbind(Card.create, Card);
 var updateCard = Q.nbind(Card.findOneAndUpdate, Card);
-var deleteCard = Q.nbind(Card.findOneAndRemove, Card);
+var removeCard = Q.nbind(Card.findOneAndRemove, Card);
 var populateVenues = Q.nbind(Card.populate, Card);
 
 var updateBoard = Q.nbind(Board.findOneAndUpdate, Board);
@@ -108,8 +108,8 @@ module.exports = {
     /////////////////
     updateOne: function (req, res, next) {},
 
-    //////////////////
-    // DELETE CARD //
-    //////////////////
-    deleteOne: function (req, res, next) {}
+    /////////////////
+    // REMOVE CARD //
+    /////////////////
+    removeOne: function (req, res, next) {}
   };
