@@ -21,7 +21,7 @@ module.exports = {
   // FETCH USER //
   ////////////////
   fetchOne: function (req, res, next) {
-    var uid = req.params.username;
+    var username = req.param('username');
 
     findUser({username: username})
     .then(function (user) {
