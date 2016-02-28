@@ -17,7 +17,7 @@ var populateVenues = Q.nbind(Card.populate, Card);
 var updateBoard = Q.nbind(Board.findOneAndUpdate, Board);
 
 /* ----------------------- */
-/*     USER CONTROLLER     */
+/*     CARD CONTROLLER     */
 /* ----------------------- */
 
 module.exports = {
