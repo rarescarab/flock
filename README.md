@@ -13,9 +13,11 @@ The following outlines server-side requests that can be sent to the Flock API.
 ### Users
 
 ##### GET
-Endpoint: `/api/users/:username`
+Endpoint: `/api/users`
 
-Append the username to the URL path (accessed by `request.params.username`). The response sends back a JSON object containing the user's ID, name, username, and an array of populated boards.
+Example: `/api/users?username=myusername`
+
+Append a query to the URL path with a username parameter (accessed by `request.param('username')`). The response sends back a JSON object containing the user's ID, name, username, and an array of populated boards.
 
 ##### POST
 Endpoint: `/api/users`
