@@ -7,7 +7,7 @@ var FacebookLogin = require('react-facebook-login');
 var apiInfo = require('../../config');
 var FACEBOOK_APP_ID = apiInfo.facebook.app_ID
 
-var Search = require('./Search.jsx');
+var Search = require('./Search');
 
 var Nav = React.createClass({
   responseFacebook: function (response) {
@@ -49,10 +49,9 @@ var Nav = React.createClass({
     return (
       <nav>
         <div className="ui fixed inverted menu" style={{'height': '50px'}}>
-          <Link to="/" activeClassName="active" onlyActiveOnIndex>Home</Link>
+          <Link to="/">Feed</Link>
           <Link to="/user">User</Link>
           <Link to="/user/board">Board</Link>
-          <Link to="/">Feed</Link>
           <div className="ui container">
             <a href="#" className="header item">
               <img className="logo" src="assets/images/logo.svg"></img>
@@ -81,9 +80,10 @@ var Nav = React.createClass({
                 <a className="item" onClick={this.logout}>Sign Out</a>
                 <div className="divider"></div>
                 <FacebookLogin
-                    appId={FACEBOOK_APP_ID}
-                    autoLoad={false}
-                    callback={this.responseFacebook} />
+                  appId={FACEBOOK_APP_ID}
+                  autoLoad={false}
+                  callback={this.responseFacebook}
+                />
               </div>
             </div>
           </div>
