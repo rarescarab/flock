@@ -10,7 +10,7 @@ var getBoards = Q.nbind(Board.find, Board);
 var findBoard = Q.nbind(Board.findOne, Board);
 var createBoard = Q.nbind(Board.create, Board);
 var updateBoard = Q.nbind(Board.findOneAndUpdate, Board);
-var deleteBoard = Q.nbind(Board.findOneAndRemove, Board);
+var removeBoard = Q.nbind(Board.findOneAndRemove, Board);
 var populateCards = Q.nbind(Board.populate, Board);
 
 var updateUser = Q.nbind(User.findOneAndUpdate, User);
@@ -50,7 +50,7 @@ module.exports = {
     var desc = req.body.desc;
     var uid = req.body.uid;
 
-    findBoard({title: title, userId: uid}) // change title to permalink
+    findBoard({permalink: title, username: username}) // change title to permalink
     .then(function (board) {
       if (board) {
         console.error('Board already exists');
@@ -99,12 +99,7 @@ module.exports = {
     updateOne: function (req, res, next) {},
 
     //////////////////
-    // DELETE BOARD //
+    // REMOVE BOARD //
     //////////////////
-    deleteOne: function (req, res, next) {},
-
-    ////////////////////
-    // POPULATE CARDS //
-    ////////////////////
-    populateList: function (req, res, next) {}
+    removeOne: function (req, res, next) {}
   };
