@@ -9,7 +9,7 @@ var getVenues = Q.nbind(Venue.find, Venue);
 var findVenue = Q.nbind(Venue.findOne, Venue);
 var createVenue = Q.nbind(Venue.create, Venue);
 var updateVenue = Q.nbind(Venue.findOneAndUpdate, Venue);
-var deleteVenue = Q.nbind(Venue.findOneAndRemove, Venue);
+var removeVenue = Q.nbind(Venue.findOneAndRemove, Venue);
 
 /* ------------------------ */
 /*     VENUE CONTROLLER     */
@@ -31,8 +31,8 @@ module.exports = {
   /////////////////
   updateOne: function (req, res, next) {},
 
-  //////////////////
-  // DELETE CARD //
-  //////////////////
-  deleteOne: function (req, res, next) {}
+  /////////////////
+  // REMOVE CARD //
+  /////////////////
+  removeOne: function (req, res, next) {}
 };
