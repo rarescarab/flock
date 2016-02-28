@@ -13,7 +13,7 @@ module.exports = {
   location: {
     city: 'San Francisco',
     state: 'CA',
-    zip: 94102
+    zipcode: 94102
   },
   locations: [
     'San Francisco, CA',
