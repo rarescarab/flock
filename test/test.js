@@ -26,25 +26,31 @@ describe('server', function() {
 
   it('should accept POST requests to Boards', function(done) {
   var requestParams = {method: 'POST',
-      uri: 'http://localhost:3001/#/api/boards',
+      uri: 'http://localhost:3001/api/boards',
     json: {
       title: 'New Place',
       desc: 'A fun NEW place',
       uid: '123424245' }
   };
 
-  request(requestParams, function(error, response, body) {
-    expect(response.statusCode).to.equal(201);
+    request(requestParams, function(error, response, body) {
+      expect(response.statusCode).to.equal(201);
+      done();
+      });
+  });
+
+
+  it('should respond to GET requests for boards with a 200 status code', function(done) {
+  request('http://localhost:3001/api/boards', function(error, response, body) {
+    expect(response.statusCode).to.equal(200);
     done();
   });
+});
 
   //Implement a test that does a post and then a get to see if it already exists
   //Does it need to be saved in headers, not body?
   //Use robomongo to see if a post request made a board
   //Figure out how to then GET that board. Is the GET request messed up?
-
-
-});
 
 
 });
