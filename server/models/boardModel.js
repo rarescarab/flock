@@ -10,7 +10,7 @@ var boardSchema = new mongoose.Schema({
   description: String,
   image: String,
   category: String,
-  permalink: : {type: String, required: true, unique: true},
+  permalink: {type: String, required: true, unique: true},
   userId: {type: String, ref: User},
   cards: [{type: ObjectId, ref: Card}]
 });
