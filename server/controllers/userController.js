@@ -9,7 +9,7 @@ var getUsers = Q.nbind(User.find, User);
 var findUser = Q.nbind(User.findOne, User);
 var createUser = Q.nbind(User.create, User);
 var updateUser = Q.nbind(User.findOneAndUpdate, User);
-var deleteUser = Q.nbind(User.findOneAndRemove, User);
+var removeUser = Q.nbind(User.remove, User);
 var populateBoards = Q.nbind(User.populate, User);
 
 /* ----------------------- */
@@ -21,10 +21,9 @@ module.exports = {
   // FETCH USER //
   ////////////////
   fetchOne: function (req, res, next) {
-    var name = req.params[0];
-    var uid = req.body.uid;
+    var uid = req.params.username;
 
-    findUser({userId: uid}) // might need a return statement here
+    findUser({username: username})
     .then(function (user) {
       if (!user) {
         throw new Error('User: %s does not exist', username);
@@ -33,7 +32,8 @@ module.exports = {
       }
     })
     .fail(function (err) {
-      res.status(404).json(err);
+      console.error('Could not find user');
+      throw new Error('Could not find user');
     });
   },
 
@@ -41,41 +41,92 @@ module.exports = {
   // CREATE USER //
   /////////////////
   createOne: function (req, res, next) {
+    var authId = req.body.authId;
+    var name = req.body.name;
     var username = req.body.username;
-    var uid = req.body.uid;
 
-    findUser({userId: uid})
+    findUser({authId: authId})
     .then(function (user) {
       if (user) {
-        throw new Error('User already exists');
+        var opts = [{path: 'boards', model: 'Board'}];
+        populateBoards(user, opts)
+        .then(function (populatedUser) {
+          if (populatedUser) {
+            res.status(201).json(populatedUser);
+          }
+        }).fail(function (err) {
+          console.error('Could not populate user boards');
+          throw new Error('Could not populate user boards');
+        });
       } else {
-        createUser({ // might need return statement
-          name: username,
-          userId: uid,
+        createUser({
+          authId: authId,
+          name: name,
+          username: username,
           boards: []
+        })
+        .then(function (user) {
+          res.status(201).json(user);
+        })
+        .fail(function (err) {
+          console.error('Could not create user');
+          throw new Error('Could not create user');
         });
       }
     })
-    .then(function (user) {
-      res.status(201).json(user);
-    })
     .fail(function (err) {
-      next(err);
-    }).done();
+      console.error('Could not find user');
+      throw new Error('Could not find user');
+    });
   },
 
   /////////////////
   // UPDATE USER //
   /////////////////
-  updateOne: function (req, res, next) {},
+  updateOne: function (req, res, next) {
+    var update = req.body;
+    var uid = update.id;
+    delete update.id;
+    delete update.authId;
+    delete update.boards;
+
+    updateUser({_id: uid}, update, {new: true})
+    .then(function (user) {
+      if (!user) {
+        console.error('User: %s does not exist', username);
+        throw new Error('User: %s does not exist', username);
+      } else {
+        var opts = [{path: 'boards', model: 'Board'}];
+        populateBoards(user, opts)
+        .then(function (populatedUser) {
+          if (populatedUser) {
+            res.status(201).json(populatedUser);
+          }
+        }).fail(function (err) {
+          console.error('Could not populate user boards');
+          throw new Error('Could not populate user boards');
+        });
+      }
+    })
+    .fail(function (err) {
+      console.error('User does not exist');
+      throw new Error('User does not exist');
+    });
+  },
 
   //////////////////
   // DELETE USER //
   //////////////////
-  deleteOne: function (req, res, next) {},
+  removeOne: function (req, res, next) {
+    var uid = req.body.id;
 
-  //////////////////////////
-  // POPULATE USER BOARDS //
-  //////////////////////////
-  populateList: function (req, res, next) {},
+    removeUser({_id: uid})
+    .then(function (status) {
+      res.status(201).json(status);
+    })
+    .fail(function (err) {
+      console.error('Could not delete user');
+      throw new Error('Could not delete user');
+    });
+  }
 };
