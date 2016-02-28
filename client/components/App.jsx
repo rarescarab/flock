@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
+import { Router, Route, Link, hashHistory, browserHistory, IndexRoute } from 'react-router';
 
 
 var apiInfo = require('../../config');
@@ -21,12 +21,8 @@ var BoardModal = require('./board/BoardModal');
 // feed components
 var AuthModal = require('./feed/AuthModal');
 var Feed = require('./feed/Feed');
-var FeedCard = require('./feed/FeedCard');
-// user components
+// user component
 var User = require('./user/User');
-var UserCard = require('./user/UserCard');
-var UserModal = require('./user/UserModal');
-
 // test component
 var Home = require('./Home');
 
@@ -50,7 +46,7 @@ var App = React.createClass({
         callback(err);
       });
 
-    //Query will come from BoardCardModal.
+    //Query will come from BoardModal.
     console.log('Searching Place...');
     return;
   },
@@ -68,7 +64,7 @@ var App = React.createClass({
         callback(err);
       });
 
-    //Query will come from BoardCardModal.
+    //Query will come from BoardModal.
     console.log('Searching Venue...');
     return;
   },
@@ -108,7 +104,6 @@ var BoardHandler = React.createClass({
   render: function () {
     return (
       <div>
-      {console.log('inside BoardHandler', this.props.status)}
       <Board board={this.props.status.boards[2]} venues={this.props.status.venues} style={containStyle}/>
       </div>
     )
@@ -119,7 +114,6 @@ var UserHandler = React.createClass({
   render: function () {
     return (
       <div>
-      {console.log('inside UserHandler', this.props.status)}
       <User user={this.props.status.user} boards={this.props.status.boards} venues={this.props.status.venues} style={containStyle}/>
       </div>
     )
@@ -130,7 +124,6 @@ var FeedHandler = React.createClass({
   render: function () {
     return (
       <div>
-      {console.log('inside FeedHandler', this.props.status)}
       <Feed cards={this.props.status.cards} venues={this.props.status.venues} style={containStyle}/>
       </div>
     )
@@ -138,14 +131,12 @@ var FeedHandler = React.createClass({
 });
 
 ReactDOM.render(
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      {console.log('inside Router')};
-      <IndexRoute component={Home} />
-      <Route path="/board" component={BoardHandler} />
-      <Route path="/user" component={UserHandler}/>
-      <Route path="/feed" component={FeedHandler} />
+  <Router history={browserHistory}>
+    <Route path='/' component={App}>
+      <IndexRoute component={FeedHandler}/>
+      <Route path='/*/*' component={BoardHandler}/>
+      <Route path='/*' component={UserHandler}/>
       </Route>
-  </Router>, 
+  </Router>,
   document.getElementById('app')
 );

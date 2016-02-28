@@ -26,8 +26,8 @@ var Nav = React.createClass({
         <div className="ui fixed inverted menu" style={{'height': '50px'}}>
           <Link to="/" activeClassName="active" onlyActiveOnIndex>Home</Link>
           <Link to="/user">User</Link>
-          <Link to="/board">Board</Link>
-          <Link to="/feed">Feed</Link>
+          <Link to="/user/board">Board</Link>
+          <Link to="/">Feed</Link>
           <div className="ui container">
             <a href="#" className="header item">
               <img className="logo" src="assets/images/logo.svg"></img>

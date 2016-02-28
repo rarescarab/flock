@@ -52,7 +52,7 @@ var BoardModal = React.createClass({
   },
 
   render: function(){
-    return;
+    return <h1>Time/Date Picker</h1>;
   }
 });
 

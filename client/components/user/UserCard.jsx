@@ -24,7 +24,8 @@ var UserCard = React.createClass({
 
     var featContainStyle = {
       'overflow': 'hidden',
-      'overflowX': 'scroll'
+      'overflowX': 'scroll',
+      'height': '60px'
     };
 
     return (

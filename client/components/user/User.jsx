@@ -2,8 +2,9 @@ var React = require('react');
 var ReactRouter = require('react-router');
 
 var Card = require('../Card');
-var UserCard = require('./UserCard')
-var UserModal = require('./UserModal');
+var UserCard = require('./UserCard');
+var Modal = require('../Modal');
+var UserModal = require('../user/UserModal');
 
 var User = React.createClass({
   propTypes: {
@@ -79,7 +80,9 @@ var User = React.createClass({
             </div>
           </div>
         </main>
-        <UserModal/>
+        <Modal>
+          <UserModal/>
+        </Modal>
       </section>
     )
   }
