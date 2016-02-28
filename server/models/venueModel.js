@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var venueSchema = new mongoose.Schema({
   venueId: String,
-  photoSuffix: String,
+  photo: String,
   rating: Number,
   hours: [{
     days: String,
