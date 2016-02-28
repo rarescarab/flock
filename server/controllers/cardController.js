@@ -132,7 +132,7 @@ module.exports = {
     removeOne: function (req, res, next) {
       var uid = req.body.id;
 
-      removeCard({_.id = uid})
+      removeCard({_id: uid})
       .then(function (status) {
         res.status(201).json(status);
       })
