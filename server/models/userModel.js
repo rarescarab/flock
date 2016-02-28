@@ -4,8 +4,9 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var Board = require('./boardModel');
 
 var userSchema = new mongoose.Schema({
+  authId: String,
   name: String,
-  userId: String,
+  username: {type: String, required: true, unique: true},
   boards: [{type: ObjectId, ref: Board}]
 });
 
