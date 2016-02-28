@@ -119,7 +119,7 @@ module.exports = {
           throw new Error('Card: %s does not exist', card);
         } else {
           res.status(201).json(card);
-        }u
+        }
       }).fail(function (err) {
         console.log('Card does not exist');
         throw new Error('Card does not exist');
