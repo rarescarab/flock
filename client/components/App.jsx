@@ -1,86 +1,87 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-import { Router, Route, Link, hashHistory, browserHistory, IndexRoute } from 'react-router';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Router, Route, browserHistory, IndexRoute} from 'react-router'
 
+import mockState from './lists/mockState'
+import apiInfo from '../../config'
+window.FOURSQUARE_CLIENT_ID = apiInfo.foursquare.client_ID
+window.FOURSQUARE_CLIENT_SECRET = apiInfo.foursquare.client_secret
+window.ZIPCODEAPI_KEY = apiInfo.zipcode.zipcodeapi_key
 
-var apiInfo = require('../../config');
-window.FOURSQUARE_CLIENT_ID = apiInfo.foursquare.client_ID;
-window.FOURSQUARE_CLIENT_SECRET = apiInfo.foursquare.client_secret;
-window.ZIPCODEAPI_KEY = apiInfo.zipcode.zipcodeapi_key;
+/*--------------------*/
+/*     COMPONENTS     */
+/*--------------------*/
 
-var mockState = require('./lists/mockState');
+import Nav from './Nav'
+import Search from './Search'
+import Feed from './feed/Feed'
+import Card from './Card'
 
-// main components
-var Nav = require('./Nav');
-var Search = require('./Search');
-var Card = require('./Card');
-// board components
-var Board = require('./board/Board');
-var BoardCard = require('./board/BoardCard');
-var BoardModal = require('./board/BoardModal');
-// feed components
-var AuthModal = require('./feed/AuthModal');
-var Feed = require('./feed/Feed');
-// user component
-var User = require('./user/User');
-// test component
-var Home = require('./Home');
+import User from './user/User'
+import AuthModal from './feed/AuthModal'
 
-var App = React.createClass({
-  getInitialState: function () {
-    return mockState;
-  },
+import Board from './board/Board'
+import BoardCard from './board/BoardCard'
+import BoardModal from './board/BoardModal'
 
-  searchPlace: function (query, callback) {
-      var city = this.state.location.city.split(' ').join('+');
-      city += ',+' + this.state.location.state;
+/*-------------*/
+/*     App     */
+/*-------------*/
 
-      console.log('Searching Foursquare for %s in %s', query, city);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = mockState
+  }
 
-      $.get('https://api.foursquare.com/v2/venues/search?client_id='+FOURSQUARE_CLIENT_ID+'&client_secret='+FOURSQUARE_CLIENT_SECRET+'&v=20130815&near='+city+'&query='+query)
-      .done(function(data) {
-        console.log("WORKS!");
-        callback(data);
-        }).fail(function(err) {
-        console.log('there was an error')
-        callback(err);
-      });
+  searchPlace = (query, callback) => {
+    const url = 'https://api.foursquare.com/v2/venues/search';
+    const params = {
+      client_id: FOURSQUARE_CLIENT_ID,
+      client_secret: FOURSQUARE_CLIENT_SECRET,
+      v: 20130815,
+      near: this.state.location.zipcode,
+      query: query
+    }
 
-    //Query will come from BoardModal.
-    console.log('Searching Place...');
-    return;
-  },
+    $.get(url, params)
+    .done(function(data) {
+      callback(data)
+      }).fail(function(err) {
+      callback(err)
+    })
+  }
 
-  searchVenue: function (venueId, callback) {
-      console.log('Searching Foursquare for venue ID %s', venue);
-      var url = 'https://api.foursquare.com/v2/venues/' + venueId + '?client_id=' + FOURSQUARE_CLIENT_ID + '&client_secret=' + FOURSQUARE_CLIENT_SECRET + '&v=20160225';
+  searchVenue = (venueId, callback) => {
+    const url = `https://api.foursquare.com/v2/venues/${venueId}`
+    const params = {
+      client_id: FOURSQUARE_CLIENT_ID,
+      client_secret: FOURSQUARE_CLIENT_SECRET,
+      v: 20160225
+    }
 
-      $.get(url)
-      .done(function(data) {
-        console.log("GOT VENUE DATA!");
-        callback(data);
-        }).fail(function(err) {
-        console.log('there was an error')
-        callback(err);
-      });
+    $.get(url, params)
+    .done(function(data) {
+      console.log("GOT VENUE DATA!")
+      callback(data)
+      }).fail(function(err) {
+      console.log('there was an error')
+      callback(err)
+    })
+  }
 
-    //Query will come from BoardModal.
-    console.log('Searching Venue...');
-    return;
-  },
-
-  explorePlace: function (query) {
+  explorePlace = (query) => {
     // Foursquare Explore API call to return inspiration data
-    console.log('Exploring Place...');
-    return;
-  },
+  }
 
-  render: function () {
-    // console logs to make sure children is getting populated
-    // console.log('this.state', this.state);
-    // console.log('this.props: ', this.props);
-    // console.log('children: ', this.props.children);
-    var children = React.cloneElement(this.props.children, { status: this.state });
+  render() {
+    const containStyle = {
+      'marginTop': '50px',
+      'padding': '20px 30px'
+    }
+
+    var children = React.cloneElement(this.props.children,
+      { status: this.state, style: containStyle })
 
     return (
       <div>
@@ -89,46 +90,55 @@ var App = React.createClass({
           explorePlace={this.explorePlace}
           locations={this.state.locations}
         />
-        {children || <Home/>}
-      </div>
-    );
-  }
-});
-
-var containStyle = {
-  'marginTop': '50px',
-  'padding': '20px 30px'
-};
-
-var BoardHandler = React.createClass({
-  render: function () {
-    return (
-      <div>
-      <Board board={this.props.status.boards[2]} venues={this.props.status.venues} style={containStyle}/>
+        {children}
       </div>
     )
   }
-});
+}
 
-var UserHandler = React.createClass({
-  render: function () {
+/*------------------*/
+/*     HANDLERS     */
+/*------------------*/
+
+class BoardHandler extends React.Component {
+  render() {
     return (
-      <div>
-      <User user={this.props.status.user} boards={this.props.status.boards} venues={this.props.status.venues} style={containStyle}/>
-      </div>
+      <Board board={this.props.status.boards[2]}
+        venues={this.props.status.venues}
+        style={this.props.style}
+        />
     )
   }
-});
+}
 
-var FeedHandler = React.createClass({
-  render: function () {
+class UserHandler extends React.Component {
+  render() {
     return (
-      <div>
-      <Feed cards={this.props.status.cards} venues={this.props.status.venues} style={containStyle}/>
-      </div>
+      <User
+        user={this.props.status.user}
+        boards={this.props.status.boards}
+        venues={this.props.status.venues}
+        style={this.props.style}
+      />
     )
   }
-});
+}
+
+class FeedHandler extends React.Component {
+  render() {
+    return (
+      <Feed
+        cards={this.props.status.cards}
+        venues={this.props.status.venues}
+        style={this.props.style}
+      />
+    )
+  }
+}
+
+/*----------------*/
+/*     ROUTER     */
+/*----------------*/
 
 ReactDOM.render(
   <Router history={browserHistory}>
@@ -136,7 +146,7 @@ ReactDOM.render(
       <IndexRoute component={FeedHandler}/>
       <Route path='/*/*' component={BoardHandler}/>
       <Route path='/*' component={UserHandler}/>
-      </Route>
+    </Route>
   </Router>,
   document.getElementById('app')
-);
+)
