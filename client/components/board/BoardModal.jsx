@@ -9,6 +9,18 @@ var FOURSQUARE_CLIENT_SECRET = api.foursquare.client_secret
 /* ----------------- */
 
 var BoardModal = React.createClass({
+  componentDidMount: function () {
+    $('#rangestart').calendar({
+      type: 'date',
+      endCalendar: $('#rangeend')
+    });
+    
+    $('#rangeend').calendar({
+      type: 'date',
+      startCalendar: $('#rangestart')
+    });
+
+  },
   getInitialState: function () {
     return {
       userTitle: '',
@@ -79,14 +91,7 @@ var BoardModal = React.createClass({
       </div>
     )
 
-//     $('#rangestart').calendar({
-//   type: 'date',
-//   endCalendar: $('#rangeend')
-// });
-// $('#rangeend').calendar({
-//   type: 'date',
-//   startCalendar: $('#rangestart')
-// });
+
 
 // https://jsbin.com/xupahuriyi/edit?html,js,output
 // http://react-components.com/component/react-datepicker
