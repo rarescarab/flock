@@ -1,5 +1,5 @@
 import React from 'react'
-import {Divider, Dimmer, Modal, Header, Form, Grid, Menu, Icon} from 'react-semantify'
+import {Button, Divider, Dimmer, Modal, Header, Form, Grid, Menu, Icon} from 'react-semantify'
 
 import categories from './lists/categories'
 import friends from './lists/friends'
@@ -22,7 +22,6 @@ const toggleStyle = {
 /* ------------------ */
 
 class BoardModal extends React.Component {
-
   componentDidMount() {
     $('#' + this.props.mode + 'Checkbox').checkbox()
     $('#' + this.props.mode + 'Dropdown').dropdown()
@@ -101,8 +100,19 @@ class BoardModal extends React.Component {
             </div>
           </div>{/* Modal Content */}
           <div className="actions">
-            <div id={`${this.props.mode}Cancel`} className="ui cancel button">Cancel</div>
-            <div id={`${this.props.mode}Create`} className="ui green ok button">Create</div>
+            <Button
+              id={`${this.props.mode}Cancel`}
+              onClick={this.props.toggleModal}
+              className="cancel">
+              Cancel
+            </Button>
+            <Button
+              id={`${this.props.mode}Create`}
+              onClick={this.props.submitForm}
+              className="green ok"
+              disabled={this.props.formIsValid}>
+              Create
+            </Button>
           </div>{/* Modal Footer */}
         </Modal>
       </Dimmer>
