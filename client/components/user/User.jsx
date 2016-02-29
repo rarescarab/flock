@@ -6,7 +6,7 @@ import Modal from '../Modal'
 import UserModal from './UserModal'
 
 /* -------------- */
-/*     User     */
+/*      User      */
 /* -------------- */
 
 class User extends React.Component {
@@ -34,30 +34,29 @@ class User extends React.Component {
   }
 
   changeLink = (evt) => {
-    this.generatePermalink(evt.target.value)
+    var link = this.generateLink(evt.target.value)
+    this.setState({permalink: link})
     this.setState({pristine: false})
   }
 
-  checkLink = () => {
-    console.log('CHECKING API FOR LINK NOW',this)
-    $.get('/api/boards', {
-      permalink: this.state.permalink,
-      username: this.props.user.username
-    })
-    .done(function(data) {
-      if (data) {
-        console.log('GOT BOARD DATA BACK!',this)
-        this.setState({valid: true})
-      } else {
-        console.log('GOT NO BOARD DATA BACK!',this)
+  checkLink = (evt) => {
+    if (this.state.pristine || evt.target.id === 'userModalPermalink') {
+      $.get('/api/boards', {
+        uid: '56cdecf9c52f037b0e66709c', // this.props.user.id
+        permalink: this.state.permalink
+      })
+      .done((board) => {
+        if (!board) {
+          this.setState({valid: true})
+        } else {
+          this.setState({valid: false})
+        }
+      }).fail((err) => {
         this.setState({valid: false})
-      }
-    }).fail(function(err) {
-      console.log('GOT AN ERROR FROM API!',this)
-      this.setState({valid: false})
-      console.error('Could not get board data from server', err)
-      throw new Error('Could not get board data from server', err)
-    })
+        console.error('Could not get board data from server', err)
+        throw new Error('Could not get board data from server', err)
+      })
+    }
   }
 
   toggleModal = () => {
