@@ -11,7 +11,7 @@ var getCards = Q.nbind(Card.find, Card);
 var findCard = Q.nbind(Card.findOne, Card);
 var createCard = Q.nbind(Card.create, Card);
 var updateCard = Q.nbind(Card.findOneAndUpdate, Card);
-var removeCard = Q.nbind(Card.findOneAndRemove, Card);
+var removeCard = Q.nbind(Card.remove, Card);
 var populateVenues = Q.nbind(Card.populate, Card);
 
 var updateBoard = Q.nbind(Board.findOneAndUpdate, Board);
@@ -119,7 +119,7 @@ module.exports = {
           throw new Error('Card: %s does not exist', card);
         } else {
           res.status(201).json(card);
-        }u
+        }
       }).fail(function (err) {
         console.log('Card does not exist');
         throw new Error('Card does not exist');
