@@ -41,9 +41,9 @@ module.exports = {
             venueId: venueId,
             photoSuffix: fsq.response.venue.bestPhoto.suffix,
             rating: fsq.response.venue.rating,
-            price: !fsq.response.venue.price ? [] :
+            price: !fsq.response.venue.price ? '' :
               fsq.response.venue.price.tier,
-            tier: !fsq.response.venue.price ? [] :
+            tier: !fsq.response.venue.price ? '' :
               fsq.response.venue.price.message,
             hours: !fsq.response.venue.hours ? [] :
               fsq.response.venue.hours.timeframes.map(time => {

@@ -12,18 +12,20 @@ var Search = require('./Search');
 var Nav = React.createClass({
   responseFacebook: function (response) {
     var props = this.props; // retain binding of this.props passed down from <App/>
+    console.log('response', response);
     var username = response.name.replace(/\s+/g, '').toLowerCase();;
 
     $.post('/api/users', { 
       authId: response.id, 
       name: response.name,
-      username: username
+      username: username,
     })
     .done(function (user) {
       props.setUser({
         id: response._id,
-        name: name,
-        username: username
+        name: response.name,
+        username: username,
+        loggedIn: true
       })
     })
     .fail(function (err) {
@@ -37,13 +39,23 @@ var Nav = React.createClass({
 
     FB.logout(function (response) {
       props.setUser({
-        username: "Sign In"
+        username: "Sign In",
+        loggedIn: false
       })
       console.log("You\'ve been logged out!\n", response);
     });
   },
 
   render: function () {
+    var loginButton = 
+      <FacebookLogin
+        appId={FACEBOOK_APP_ID}
+        autoLoad={false}
+        callback={this.responseFacebook}
+      />;
+
+    var logoutButton = <a href="/" className="item" onClick={this.logout}>Logout</a>
+
     return (
       <nav>
         <div className="ui fixed inverted menu" style={{'height': '50px'}}>
@@ -75,14 +87,9 @@ var Nav = React.createClass({
                   </div>
                 </div>
                 <div className="divider"></div>
-                <a className="item" onClick={this.logout}>Sign Out</a>
-                <div className="divider"></div>
-                <FacebookLogin
-                  appId={FACEBOOK_APP_ID}
-                  autoLoad={false}
-                  callback={this.responseFacebook}
-                />
+                  {this.props.user.loggedIn ? logoutButton : loginButton}
               </div>
+                <div className="divider"></div>
             </div>
           </div>
         </div>
