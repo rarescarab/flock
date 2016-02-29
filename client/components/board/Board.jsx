@@ -1,39 +1,49 @@
-var React = require('react');
-var ReactRouter = require('react-router');
+import React from 'react'
 
-var Card = require('../Card');
-var BoardCard = require('./BoardCard');
-var Modal = require('../Modal');
-var BoardModal = require('./BoardModal');
+import BoardCard from './BoardCard'
+import Modal from '../Modal'
+import BoardModal from './BoardModal'
 
-var Board = React.createClass({
-  propTypes: {
-    title: React.PropTypes.string,
-    image: React.PropTypes.string,
-    description: React.PropTypes.string,
-    userId: React.PropTypes.string,
-    cards: React.PropTypes.array
-  },
+class Board extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { mode: 'boardModal' }
+  }
 
-  getDefaultProps: function () {
-    return {
-      title: 'Sample Board Title',
-      image: 'http://semantic-ui.com/images/wireframe/image.png',
-      description: 'Lorem ipsum...Some dummy board data goes here.',
-      userId: '',
-      cards: []
-    }
-  },
+  showModal = (evt) => {
+    var $modal = $('#' + this.state.mode + 'Modal')
+    var $form = $('#' + this.state.mode + 'Form')
+    var $title = $('#' + this.state.mode + 'Title')
+    var $desc = $('#' + this.state.mode + 'Description')
+    var $pvt = $('#' + this.state.mode + 'Secret')
+    var $flock = $('#' + this.state.mode + 'Flock')
 
-  revealModal: function(){
-    $('#boardModal.ui.modal').modal('show');
-  },
+    $('#' + this.state.mode)
+      .modal({
+        onDeny: function (evt) {
+          console.log('GOODBYE NEW CARD')
+        },
+        onApprove: function (evt) {
+          var title = $title.val()
+          var description = $description.val()
+          var isPrivate = $isPrivate.val()
+          var flock = $flock.val()
+          console.log('Approved!', this)
+          console.log('title', title)
+          console.log('description', description)
+          console.log('isPrivate', isPrivate)
+          console.log('flock', flock)
+          return false
+        }
+      })
+      .modal('toggle')
+  }
 
-  resizeModal: function(){
-    $('#boardModal.ui.modal').modal('refresh');
-  },
+  resizeModal = (evt) => {
+    $('#boardModal').modal('refresh')
+  }
 
-  render: function () {
+  render() {
     var headStyle = {
       'marginTop': '50px',
       'height': '60vh',
@@ -42,7 +52,7 @@ var Board = React.createClass({
       'backgroundSize': 'cover',
       'backgroundPosition': 'center 65%',
       'backgroundRepeat': 'no-repeat'
-    };
+    }
 
     return (
       <section>
@@ -61,18 +71,34 @@ var Board = React.createClass({
           </div>
 
           <div className="ui center aligned basic segment">
-            <div onClick={this.revealModal} className="ui center massive circular icon blue button">
+            <div onClick={this.showModal} className="ui center massive circular icon blue button">
               <i className="plus icon"></i>
             </div>
           </div>
         </main>
 
-        <Modal>
-          <BoardModal/>
+        <Modal mode={this.state.mode} header={'Create a card'}>
+          <BoardModal mode={this.state.mode}/>
         </Modal>
       </section>
     )
   }
-});
+}
 
-module.exports = Board;
+Board.propTypes = {
+  title: React.PropTypes.string,
+  image: React.PropTypes.string,
+  description: React.PropTypes.string,
+  userId: React.PropTypes.string,
+  cards: React.PropTypes.array
+}
+
+Board.defaultProps = {
+  title: 'Sample Board Title',
+  image: 'http://semantic-ui.com/images/wireframe/image.png',
+  description: 'Lorem ipsum...Some dummy board data goes here.',
+  userId: '',
+  cards: []
+}
+
+module.exports = Board
