@@ -1,5 +1,49 @@
 # Flock
 ---
+## Summary
+Flock is an app designed to help you plan events of any kind to birthday parties and bar crawls to wedding weekends and days exploring new cities. Simply create an itinerary for your event and share it with your flock.
+
+## Stack/Technologies
+MongoDB  
+Express  
+React  
+Node  
+Mongoose  
+Semantic UI  
+Webpack  
+Mocha & Chai
+
+## Getting Started
+To download front-end dependencies, `bower install`  
+To download back-end dependencies, `npm install`
+
+## Front-End
+
+## APIs
+### Facebook Auth
+### Foursquare
+- requires client ID & client secret to access
+- Search endpoint - takes in a city and a search query and returns a collection of venues
+- Venues endpoint - takes in a specific Foursquare venueId and returns more information about that venue
+### Zip Code
+- requires API key
+- converts zip codes into city names
+
+All API keys stored in config.js file in root directory (in .gitignore). Use APIKeysTemplate.js as a guide.
+
+## React Components
+App - main component that links together all other components  
+Nav - navigation bar at the top of the page  
+Search - searches Foursquare’s database of locations using a user-specified query  
+Feed - shows suggested venues that user can add to an itinerary  
+User - displays the user’s stats and event boards  
+AuthModal - signup/login page using Facebook authentication  
+Board - displays an event’s itinerary including user-generated text and location information  
+BoardCard - an individual card displaying one location of an event  
+BoardModal - allows user to create a new event card on an itinerary board  
+
+## Back-End
+
 ## Flock API
 
 The following outlines server-side requests that can be sent to the Flock API.
@@ -216,5 +260,3 @@ DELETE requests remove persisted venue documents in the database. A venueId is r
 ├── .gitignore
 ├── _PRESS_RELEASE.md
 └── README.md
-
-```
