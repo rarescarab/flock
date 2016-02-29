@@ -11,10 +11,8 @@ var Search = require('./Search');
 
 var Nav = React.createClass({
   responseFacebook: function (response) {
-    var props = this.props;
-
+    var props = this.props; // retain binding of this.props passed down from <App/>
     var username = response.name.replace(/\s+/g, '').toLowerCase();;
-    console.log('AUTHID: ', response.id, 'NAME: ', response.name, 'USERNAME: ', response.username);
 
     $.post('/api/users', { 
       authId: response.id, 
