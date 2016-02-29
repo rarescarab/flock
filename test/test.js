@@ -28,18 +28,19 @@ describe('server', function() {
   var requestParams = {method: 'POST',
       uri: 'http://localhost:3001/api/boards',
     json: {
-      title: 'New Place',
-      desc: 'A fun NEW place',
-      uid: '123424245' }
+      title: 'The test',
+      desc: 'testing now',
+      uid: '10154055994639363' }
   };
   //The place gets posted. But how can we check? How do we do a GET request with params?
   //How do we then clear the database to be used again later?
-
 
     request(requestParams, function(error, response, body) {
       expect(response.statusCode).to.equal(201);
       done();
       });
+
+
   });
 
 
@@ -50,12 +51,12 @@ describe('server', function() {
   });
 });
 
-app.get('http://localhost:3001/api/boards', function(req, res) {  
-  res.json({
-    count: count,
-    message: 'oh boy, ' + count + ' pickles!'
-  });
-});
+// app.get('http://localhost:3001/api/boards', function(req, res) {
+//   res.json({
+//     count: count,
+//     message: 'oh boy, ' + count + ' pickles!'
+//   });
+// });
 
   //Implement a test that does a post and then a get to see if it already exists
   //Does it need to be saved in headers, not body?
