@@ -34,6 +34,12 @@ class App extends React.Component {
     this.state = mockState
   }
 
+  setUser = (user) => {
+    this.setState({
+      user: user
+    })
+  }
+
   searchPlace = (query, callback) => {
     const url = 'https://api.foursquare.com/v2/venues/search';
     const params = {
@@ -89,6 +95,8 @@ class App extends React.Component {
           searchPlace={this.searchPlace}
           explorePlace={this.explorePlace}
           locations={this.state.locations}
+          setUser={this.setUser.bind(this)}
+          user={this.state.user}
         />
         {children}
       </div>
@@ -103,10 +111,11 @@ class App extends React.Component {
 class BoardHandler extends React.Component {
   render() {
     return (
-      <Board board={this.props.status.boards[2]}
+      <Board
+        board={this.props.status.boards[2]}
         venues={this.props.status.venues}
         style={this.props.style}
-        />
+      />
     )
   }
 }
