@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 
+
 var api = require('../../../config');
 
 var FOURSQUARE_CLIENT_ID = api.foursquare.client_ID
@@ -51,9 +52,48 @@ var BoardModal = React.createClass({
 
   },
 
+
   render: function(){
-    return <h1>Time/Date Picker</h1>;
+    return (
+      <div>
+        <h1>Time/Date Picker</h1>
+        <div class="ui form">
+          <div class="two fields">
+            <div class="field">
+              <label>Start date</label>
+              <div class="ui calendar" id="rangestart" data-value='date'>
+                <div class="ui input left icon">
+                  <i class="calendar icon"></i>
+                  <input type="text" placeholder="Start"></input>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label>End date</label>
+              <div class="ui calendar" id="rangeend">
+                <div class="ui input left icon">
+                  <i class="calendar icon"></i>
+                  <input type="text" placeholder="End"></input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+
+//     $('#rangestart').calendar({
+//   type: 'date',
+//   endCalendar: $('#rangeend')
+// });
+// $('#rangeend').calendar({
+//   type: 'date',
+//   startCalendar: $('#rangestart')
+// });
+
   }
 });
+
+
 
 module.exports = BoardModal;
