@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Router, Route, browserHistory, IndexRoute} from 'react-router'
+import {Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-router'
 
 import mockState from './lists/mockState'
 import apiInfo from '../../config'
@@ -150,7 +150,7 @@ class FeedHandler extends React.Component {
 /*----------------*/
 
 ReactDOM.render(
-  <Router history={browserHistory}>
+  <Router history={hashHistory}>
     <Route path='/' component={App}>
       <IndexRoute component={FeedHandler}/>
       <Route path='/*/*' component={BoardHandler}/>
