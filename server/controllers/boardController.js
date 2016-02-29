@@ -57,7 +57,7 @@ module.exports = {
     var uid = req.body.uid;
     var cards = req.body.cards;
 
-    findBoard({permalink: title, username: username}) // change title to permalink
+    findBoard({permalink: permalink, username: username}) // change title to permalink
     .then(function (board) {
       if (board) {
         console.error('Board already exists');
@@ -78,12 +78,13 @@ module.exports = {
           {new: true}) // returns updated document
           .then(function (user) {
             var opts = [{path: 'boards', model: 'Board'}];
-            populateUser(user, opts)
-            .then(function (populatedUser) {
-              if (populatedUser) {
-                res.status(200).json(populatedUser);
+            populateCards(user, opts)
+            .then(function (populatedBoard) {
+              if (populatedBoard) {
+                res.status(200).json(populatedBoard);
               }
-            }).fail(function (err) {
+            })
+            .fail(function (err) {
               console.error('Could not populate user boards');
               throw new Error('Could not populate user boards');
             });
@@ -92,11 +93,13 @@ module.exports = {
             console.error('Could not update user boards', err);
             throw new Error('Could not update user boards', err);
           });
-        }).fail(function (err) {
+        })
+        .fail(function (err) {
           console.error('Could not create new board', err);
           throw new Error('Could not create new board', err);
         });
-      }).fail(function (err) {
+      })
+      .fail(function (err) {
         console.error('Could not find board', err);
         throw new Error('Could not find board', err);
       });
