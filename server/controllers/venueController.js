@@ -37,16 +37,29 @@ module.exports = {
           json: true
         })
         .then(fsq => {
+          var venue = fsq.response.venue
           createVenue({
-            venueId: venueId,
-            photoSuffix: fsq.response.venue.bestPhoto.suffix,
-            rating: fsq.response.venue.rating,
-            price: !fsq.response.venue.price ? '' :
-              fsq.response.venue.price.tier,
-            tier: !fsq.response.venue.price ? '' :
-              fsq.response.venue.price.message,
-            hours: !fsq.response.venue.hours ? [] :
-              fsq.response.venue.hours.timeframes.map(time => {
+            venueId: venueId || '',
+            name: venue.name || '',
+            photoSuffix: venue.bestPhoto.suffix || '',
+            address: venue.location.address || '',
+            rating: venue.rating || '',
+            price: !venue.price ? '' :
+              venue.price.tier,
+            tier: !venue.price ? '' :
+              venue.price.message,
+            tips: venue.stats.tipCount,
+            visitors: venue.stats.visitsCount,
+            menu: !venue.hasMenu ? '' :
+              venue.menu.externalUrl || venue.menu.mobileUrl || '',
+            url: venue.url || venue.canonicalUrl || '',
+            twitter: venue.contact ? '' :
+              venue.contact.twitter || '',
+            facebook: venue.contact ? '' :
+              venue.contact.facebook || '',
+            category: venue.categories[0].shortName || '',
+            hours: !venue.hours ? [] :
+              venue.hours.timeframes.map(time => {
                 return {days: time.days, open: time.open}
               }),
             createdAt: new Date(),
@@ -82,19 +95,33 @@ module.exports = {
       json: true
     })
     .then(fsq => {
-      const update = {
-        updatedAt: new Date(),
-        photoSuffix: fsq.response.venue.bestPhoto.suffix,
-        rating: fsq.response.venue.rating,
-        price: !fsq.response.venue.price ? [] :
-          fsq.response.venue.price.tier,
-        tier: !fsq.response.venue.price ? [] :
-          fsq.response.venue.price.message,
-        hours: !fsq.response.venue.hours ? [] :
-          fsq.response.venue.hours.timeframes.map(time => {
+      var venue = fsq.response.venue
+      var update = {
+        venueId: venueId || '',
+        name: venue.name || '',
+        photoSuffix: venue.bestPhoto.suffix || '',
+        address: venue.location.address || '',
+        rating: venue.rating || '',
+        price: !venue.price ? '' :
+          venue.price.tier,
+        tier: !venue.price ? '' :
+          venue.price.message,
+        tips: venue.stats.tipCount,
+        visitors: venue.stats.visitsCount,
+        menu: !venue.hasMenu ? '' :
+          venue.menu.externalUrl || venue.menu.mobileUrl || '',
+        url: venue.url || venue.canonicalUrl || '',
+        twitter: venue.contact ? '' :
+          venue.contact.twitter || '',
+        facebook: venue.contact ? '' :
+          venue.contact.facebook || '',
+        category: venue.categories[0].shortName || '',
+        hours: !venue.hours ? [] :
+          venue.hours.timeframes.map(time => {
             return {days: time.days, open: time.open}
-          })
-      };
+          }),
+        updatedAt: new Date()
+      }
 
       updateVenue({venueId: venueId}, update, {new: true})
       .then(updatedVenue => {

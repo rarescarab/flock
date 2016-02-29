@@ -10,15 +10,15 @@ var FOURSQUARE_CLIENT_SECRET = api.foursquare.client_secret
 
 var BoardModal = React.createClass({
   componentDidMount: function () {
-    $('#rangestart').calendar({
-      type: 'date',
-      endCalendar: $('#rangeend')
-    });
-
-    $('#rangeend').calendar({
-      type: 'date',
-      startCalendar: $('#rangestart')
-    });
+    // $('#rangestart').calendar({
+    //   type: 'date',
+    //   endCalendar: $('#rangeend')
+    // });
+    //
+    // $('#rangeend').calendar({
+    //   type: 'date',
+    //   startCalendar: $('#rangestart')
+    // });
 
   },
   getInitialState: function () {

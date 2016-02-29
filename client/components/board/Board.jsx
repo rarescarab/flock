@@ -4,10 +4,23 @@ import BoardCard from './BoardCard'
 import Modal from '../Modal'
 import BoardModal from './BoardModal'
 
+import {Button, Icon, Image, Segment, Statistic} from 'react-semantify'
+
 class Board extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { mode: 'boardModal' }
+    this.state = {
+      mode: 'boardModal',
+      dimmer: ''
+    }
+  }
+
+  toggleModal = () => {
+    if (this.state.dimmer) {
+      this.setState({dimmer: ''})
+    } else {
+      this.setState({dimmer: 'active visible'})
+    }
   }
 
   showModal = (evt) => {
@@ -70,14 +83,21 @@ class Board extends React.Component {
             )}
           </div>
 
-          <div className="ui center aligned basic segment">
-            <div onClick={this.showModal} className="ui center massive circular icon blue button">
-              <i className="plus icon"></i>
-            </div>
-          </div>
+          <Segment className="center aligned basic">
+            <Button
+              onClick={this.toggleModal.bind(this)}
+              className="pink massive center circular icon">
+              <Icon className="plus"/>
+            </Button>
+          </Segment>
         </main>
 
-        <Modal mode={this.state.mode} header={'Create a card'}>
+        <Modal
+          mode={this.state.mode}
+          header={'Create a card'}
+          dimmer={this.state.dimmer}
+          toggleModal={this.toggleModal}
+        >
           <BoardModal mode={this.state.mode}/>
         </Modal>
       </section>

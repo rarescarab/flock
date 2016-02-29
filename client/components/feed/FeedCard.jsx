@@ -31,21 +31,21 @@ var FeedCard = React.createClass({
           </div>
           <div className="description">
             {this.props.card.url || this.props.card.canonicalUrl ?
-              <a 
-                href={`http://facebook.com/${this.props.card.contact.facebook}`} 
+              <a
+                href={`http://facebook.com/${this.props.card.contact.facebook}`}
                 target="blank">
                 <Icon className="world"/>
               </a>
             : offsetJsx}
             {this.props.card.contact.facebook ?
-              <a 
+              <a
                 href={`http://facebook.com/${this.props.card.contact.facebook}`}
                 target="blank">
                 <Icon className="facebook"/>
               </a>
             : offsetJsx}
             {this.props.card.contact.twitter ?
-              <a 
+              <a
                 href={`http://twitter.com/${this.props.card.contact.twitter}`}
                 target="blank">
                 <Icon className="twitter"/>
@@ -53,13 +53,13 @@ var FeedCard = React.createClass({
             : ''}
           </div>
           {this.props.card.hasMenu ?
-            <a 
-              className="ui black bottom right attached mini label" 
-              href={this.props.card.menu.externalUrl || this.props.card.menu.mobileUrl} 
-              style={{'borderBottomRightRadius': 0}} 
+            <a
+              className="ui black bottom right attached mini label"
+              href={this.props.card.menu.externalUrl || this.props.card.menu.mobileUrl}
+              style={{'borderBottomRightRadius': 0}}
               target="blank">
               Menu
-            </a> 
+            </a>
             : ''
           }
         </div>

@@ -15,8 +15,8 @@ var Nav = React.createClass({
     console.log('response', response);
     var username = response.name.replace(/\s+/g, '').toLowerCase();;
 
-    $.post('/api/users', { 
-      authId: response.id, 
+    $.post('/api/users', {
+      authId: response.id,
       name: response.name,
       username: username,
     })
@@ -47,7 +47,7 @@ var Nav = React.createClass({
   },
 
   render: function () {
-    var loginButton = 
+    var loginButton =
       <FacebookLogin
         appId={FACEBOOK_APP_ID}
         autoLoad={false}
