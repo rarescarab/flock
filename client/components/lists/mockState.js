@@ -2,6 +2,7 @@ module.exports = {
   user: {
     _id: '56cdf15bef62061312bfc144',
     username: 'johndomingo',
+    fbAuth: true,
     name: 'Benny Hung',
     home: 94102,
     friends: [
