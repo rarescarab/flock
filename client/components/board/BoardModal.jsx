@@ -9,6 +9,18 @@ var FOURSQUARE_CLIENT_SECRET = api.foursquare.client_secret
 /* ----------------- */
 
 var BoardModal = React.createClass({
+  componentDidMount: function () {
+    $('#rangestart').calendar({
+      type: 'date',
+      endCalendar: $('#rangeend')
+    });
+
+    $('#rangeend').calendar({
+      type: 'date',
+      startCalendar: $('#rangestart')
+    });
+
+  },
   getInitialState: function () {
     return {
       userTitle: '',
@@ -54,22 +66,22 @@ var BoardModal = React.createClass({
     return (
       <div>
         <h1>Time/Date Picker</h1>
-        <div class="ui form">
-          <div class="two fields">
-            <div class="field">
+        <div className="ui form">
+          <div className="two fields">
+            <div className="field">
               <label>Start date</label>
-              <div class="ui calendar" id="rangestart" data-value='date'>
-                <div class="ui input left icon">
-                  <i class="calendar icon"></i>
+              <div className="ui calendar" id="rangestart" data-value='date'>
+                <div className="ui input left icon">
+                  <i className="calendar icon"></i>
                   <input type="text" placeholder="Start"></input>
                 </div>
               </div>
             </div>
-            <div class="field">
+            <div className="field">
               <label>End date</label>
-              <div class="ui calendar" id="rangeend">
-                <div class="ui input left icon">
-                  <i class="calendar icon"></i>
+              <div className="ui calendar" id="rangeend">
+                <div className="ui input left icon">
+                  <i className="calendar icon"></i>
                   <input type="text" placeholder="End"></input>
                 </div>
               </div>
@@ -79,14 +91,7 @@ var BoardModal = React.createClass({
       </div>
     )
 
-//     $('#rangestart').calendar({
-//   type: 'date',
-//   endCalendar: $('#rangeend')
-// });
-// $('#rangeend').calendar({
-//   type: 'date',
-//   startCalendar: $('#rangestart')
-// });
+
 
 // https://jsbin.com/xupahuriyi/edit?html,js,output
 // http://react-components.com/component/react-datepicker
