@@ -1,7 +1,7 @@
 module.exports = {
   user: {
     _id: '56cdf15bef62061312bfc144',
-    username: 'bennyhung',
+    username: 'johndomingo',
     name: 'Benny Hung',
     home: 94102,
     friends: [
