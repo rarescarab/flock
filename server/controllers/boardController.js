@@ -48,6 +48,7 @@ module.exports = {
 
   createOne: function (req, res, next) {
     console.log("POST REQUEST! : ", req.body)
+    //Needs to have a username.
     var title = req.body.title;
     var desc = req.body.desc;
     var img = req.body.img;
