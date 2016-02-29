@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 
+import {Icon} from 'react-semantify'
+
 var FeedCard = React.createClass({
   componentDidMount: function () {
     $('.special.cards .image').dimmer({on: 'hover'});
@@ -29,27 +31,44 @@ var FeedCard = React.createClass({
           </div>
           <div className="description">
             {this.props.card.url || this.props.card.canonicalUrl ?
-              <a href={`http://facebook.com/${this.props.card.contact.facebook}`} target="blank"><i className="world icon"></i></a>
+              <a 
+                href={`http://facebook.com/${this.props.card.contact.facebook}`} 
+                target="blank">
+                <Icon className="world"/>
+              </a>
             : offsetJsx}
             {this.props.card.contact.facebook ?
-              <a href={`http://facebook.com/${this.props.card.contact.facebook}`} target="blank"><i className="facebook icon"></i></a>
+              <a 
+                href={`http://facebook.com/${this.props.card.contact.facebook}`}
+                target="blank">
+                <Icon className="facebook"/>
+              </a>
             : offsetJsx}
             {this.props.card.contact.twitter ?
-              <a href={`http://twitter.com/${this.props.card.contact.twitter}`} target="blank"><i className="twitter icon"></i></a>
+              <a 
+                href={`http://twitter.com/${this.props.card.contact.twitter}`}
+                target="blank">
+                <Icon className="twitter"/>
+              </a>
             : ''}
           </div>
           {this.props.card.hasMenu ?
-            <a className="ui black bottom right attached mini label" href={this.props.card.menu.externalUrl || this.props.card.menu.mobileUrl} style={{'borderBottomRightRadius': 0}} target="blank">
+            <a 
+              className="ui black bottom right attached mini label" 
+              href={this.props.card.menu.externalUrl || this.props.card.menu.mobileUrl} 
+              style={{'borderBottomRightRadius': 0}} 
+              target="blank">
               Menu
-            </a> : ''
+            </a> 
+            : ''
           }
         </div>
         <div className="ui content attached segment">
           <span className="right floated">
-            <i className="user icon"></i>
+            <Icon className="user"/>
             {this.props.card.stats.checkinsCount} visitors
           </span>
-          <i className="idea icon"></i>
+          <Icon className="idea"/>
           {this.props.card.stats.tipCount} tips
         </div>
       </div>
