@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Router, Route, browserHistory, IndexRoute} from 'react-router'
+import {Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-router'
 
 import mockState from './lists/mockState'
 import apiInfo from '../../config'
@@ -35,9 +35,11 @@ class App extends React.Component {
   }
 
   setUser = (user) => {
-    this.setState({
-      user: user
-    })
+    this.setState({user: user})
+  }
+
+  setBoards = (boards) => {
+    this.setState({boards: boards})
   }
 
   searchPlace = (query, callback) => {
@@ -86,8 +88,12 @@ class App extends React.Component {
       'padding': '20px 30px'
     }
 
-    var children = React.cloneElement(this.props.children,
-      { status: this.state, style: containStyle })
+    var children = React.cloneElement(this.props.children, {
+      status: this.state,
+      setUser: this.setUser,
+      setBoards: this.setBoards,
+      style: containStyle
+    })
 
     return (
       <div>
@@ -127,6 +133,8 @@ class UserHandler extends React.Component {
         user={this.props.status.user}
         boards={this.props.status.boards}
         venues={this.props.status.venues}
+        setUser={this.props.setUser}
+        setBoards={this.props.setBoards}
         style={this.props.style}
       />
     )

@@ -1,99 +1,123 @@
-var React = require('react');
-var ReactRouter = require('react-router');
+import React from 'react'
+import {Button, Divider, Dimmer, Modal, Header, Form, Grid, Menu, Icon} from 'react-semantify'
 
-var categories = require('./lists/categories');
-var friends = require('./lists/friends');
+import categories from './lists/categories'
+import friends from './lists/friends'
 
 /* -------------- */
 /*     Styles     */
 /* -------------- */
 
-var modalStyle = {
-  'marginTop': '-213px',
+const modalStyle = {
+  'transform': 'translateY(-50%)',
   'display': 'block !important'
-};
+}
 
-var toggleStyle = {
+const toggleStyle = {
   'paddingLeft': '0'
-};
+}
 
-/* ----------------- */
-/*     Component     */
-/* ----------------- */
+/* ------------------ */
+/*     BoardModal     */
+/* ------------------ */
 
-var BoardModal = React.createClass({
-  componentDidMount: function () {
-    this.closeModal();
-    $('#privateCardToggle.ui.checkbox').checkbox();
-    $('#flockSelection.ui.selection').dropdown();
-  },
+class BoardModal extends React.Component {
+  componentDidMount() {
+    $('#' + this.props.mode + 'Checkbox').checkbox()
+    $('#' + this.props.mode + 'Dropdown').dropdown()
+  }
 
-  handleSubmit: function (evt) {
-  },
-
-  closeModal: function (evt) {
-    $('#boardModal.ui.modal').modal('hide');
-  },
-
-  render: function () {
+  render() {
     return (
-      <div id="boardModal" className="ui small modal transition visible active" style={modalStyle}>
-        <i className="close icon"></i>
-        <div className="header">
-          Create a board
-        </div>{/* Modal Header */}
-        <div className="content">
-          <div className="ui form">
-            <div className="ui grid field">
-              <label className="three wide column">Title</label>
-              <input name="txtTitle" className="thirteen wide column" placeholder='Try "Weekend Adventure" or "New York in 48 Hours"' required />
-            </div>{/* Title Input */}
+      <Dimmer className={`modals page transition ${this.props.dimmer}`}>
+        <Modal id={`${this.props.mode}Modal`}
+          className={`small long transition hidden ${this.props.dimmer}`}
+          style={modalStyle}>
 
-            <div className="ui grid field">
-              <label className="three wide column">Description</label>
-              <textarea name="txtDescription" rows="2" className="thirteen wide column" placeholder="What's your board about?"></textarea>
-            </div>{/* Description Textarea */}
+          <Header>{this.props.header}</Header>
 
-            {this.props.children}
+          <div className="content">
+            <div className="ui form" id={`${this.props.mode}Form`}>
+              <Grid className="field">
+                <label className="three wide column">Title</label>
+                <input
+                  id={`${this.props.mode}Title`}
+                  name={`${this.props.mode}Title`}
+                  className="thirteen wide column"
+                  placeholder='Try "Weekend Adventure" or "New York in 48 Hours"'
+                  onKeyUp={this.props.suggestLink}
+                  onBlur={this.props.checkLink}
+                  required
+                />
+              </Grid>{/* Title Text */}
 
-            <div className="ui divider"></div>
-            <div className="ui grid field">
-              <label className="three wide column">Secret</label>
-              <div className="thirteen wide column field" style={toggleStyle}>
-                <div id="privateCardToggle" className="ui toggle checkbox">
-                  <label>Only you and your flock will be able to see this board</label>
-                  <input name="chkSecret" type="checkbox" tabIndex="0" className="hidden"/>
-                </div>
-              </div>
-            </div>{/* Secret Board Toggle */}
+              {this.props.children}
 
-            <div className="ui grid field">
-              <label className="three wide column">Flock</label>
-              <div className="thirteen wide column field" style={toggleStyle}>
-                <div id="flockSelection" className="ui fluid multiple search normal selection dropdown">
-                  <input name="lstFlock" type="hidden" name="country"/>
-                  <i className="dropdown icon"></i>
-                  <div className="default text">Add to you friends to your flock</div>
-                  <div className="menu">
-                    {friends.map((f, key) =>
-                      <div className="item" data-value={f.username} key={key}>
-                        <img className="ui mini avatar image" src={`http://semantic-ui.com/images/avatar/small/${f.avatar}.jpg`}/>
-                        {f.name}
-                      </div>
-                    )}
+              <Grid className="field">
+                <label className="three wide column">Description</label>
+                <textarea id={`${this.props.mode}Description`} name={`${this.props.mode}Description`} rows="2" className="thirteen wide column" placeholder="What's your board about?"></textarea>
+              </Grid>{/* Description Textarea */}
+
+              <Divider/>
+
+              <Grid className="field">
+                <label className="three wide column">Secret</label>
+                <div className="thirteen wide column field" style={toggleStyle}>
+                  <div id={`${this.props.mode}Checkbox`} className="ui toggle checkbox">
+                    <label>Only you and your flock will be able to see this board</label>
+                    <input id={`${this.props.mode}Secret`} name={`${this.props.mode}Secret`} type="checkbox" tabIndex="0" className="hidden"/>
                   </div>
                 </div>
-              </div>
-            </div>{/* Flock Dropdown */}
-          </div>{/* Form */}
-        </div>{/* Modal Content */}
-        <div className="actions">
-          <div className="ui button">Cancel</div>
-          <div className="ui green button">Create</div>
-        </div>{/* Modal Footer */}
-      </div>
-    );
-  }
-});
+              </Grid>{/* Secret Board Toggle */}
 
-module.exports = BoardModal;
+              <Grid className="field">
+                <label className="three wide column">Flock</label>
+                <div className="thirteen wide column field" style={toggleStyle}>
+                  <div id={`${this.props.mode}Dropdown`} className="ui fluid multiple search normal selection dropdown">
+                    <input
+                      id={`${this.props.mode}Flock`}
+                      name={`${this.props.mode}Flock`}
+                      type="hidden"
+                    />
+                    <Icon className="dropdown"/>
+                    <div className="default text">
+                      Add to you friends to your flock
+                    </div>
+                    <Menu>
+                      {friends.map((f, key) =>
+                        <div className="item" data-value={f.username} key={key}>
+                          <img
+                            className="ui mini avatar image"
+                            src={`http://semantic-ui.com/images/avatar/small/${f.avatar}.jpg`}
+                          />
+                          {f.name}
+                        </div>
+                      )}
+                    </Menu>
+                  </div>
+                </div>
+              </Grid>{/* Flock Dropdown */}
+            </div>
+          </div>{/* Modal Content */}
+          <div className="actions">
+            <Button
+              id={`${this.props.mode}Cancel`}
+              onClick={this.props.toggleModal}
+              className="cancel">
+              Cancel
+            </Button>
+            <Button
+              id={`${this.props.mode}Create`}
+              onClick={this.props.submitForm}
+              className="green ok"
+              disabled={this.props.formIsValid}>
+              Create
+            </Button>
+          </div>{/* Modal Footer */}
+        </Modal>
+      </Dimmer>
+    )
+  }
+}
+
+module.exports = BoardModal

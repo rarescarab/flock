@@ -1,51 +1,65 @@
-var React = require('react');
-var ReactRouter = require('react-router');
+import React from 'react'
 
-var categories = require('../lists/categories');
-var friends = require('../lists/friends');
+import categories from '../lists/categories'
+import friends from '../lists/friends'
 
-/* -------------- */
-/*     Styles     */
-/* -------------- */
-
-var modalStyle = {
-  'marginTop': '-213px',
-  'display': 'block !important'
-};
-
-var toggleStyle = {
-  'paddingLeft': '0'
-};
+import {Grid, Input, Icon, Item, Dropdown, Menu, Segment} from 'react-semantify'
 
 /* ----------------- */
 /*     Component     */
 /* ----------------- */
 
-var UserModal = React.createClass({
-  componentDidMount: function () {
-    $('#categoryDropdown.ui.dropdown').dropdown();
-  },
-
-  render: function () {
+class UserModal extends React.Component {
+  render() {
     return (
-      <div className="ui grid field">
-        <label className="three wide column">Category</label>
-        <div id="categoryDropdown" className="ui selection dropdown thirteen wide column">
-          <input name="drpCategory" type="hidden" name="card[type]"/>
-          <div className="default text">What kind of board is it?</div>
-          <i className="dropdown icon"></i>
-          <div className="menu">
-            {$.map(categories, (val, category) =>
-              <div className="item" data-value={category} data-text={category} key={category}>
-                <i className={`${val.color} ${val.icon} icon`}></i>
-                {category}
-              </div>
-            )}
-          </div>{/* Menu */}
-        </div>{/* Category Dropdown */}
-      </div>
-    );
-  }
-});
+      <div style={{'marginBottom': '15px'}}>
+        <Grid className="field">
+          <label className="three wide column">Permalink</label>
+          <Input className="transparent left icon thirteen wide column">
+            <input
+              type="text"
+              id={`${this.props.mode}Permalink`}
+              name={`${this.props.mode}Permalink`}
+              style={{'width': '100%'}}
+              placeholder={`/${this.props.user.username}/your-board-title`}
+              value={this.props.permalink}
+              onChange={this.props.changeLink}
+              onBlur={this.props.checkLink}
+              required
+            />
+            <Icon className="linkify"/>
+          </Input>
+        </Grid>{/* Permalink Text */}
 
-module.exports = UserModal;
+        <Grid className="field">
+          <label className="three wide column">Category</label>
+          <Dropdown
+            id={`${this.props.mode}Selection`}
+            className="selection thirteen wide column"
+            init={true}>
+            <input
+              id={`${this.props.mode}Category`}
+              name={`${this.props.mode}Category`}
+              type="hidden"
+            />
+            <div className="default text">What kind of board is it?</div>
+            <Icon className="dropdown"/>
+            <Menu>
+              {$.map(categories, (val, category) =>
+                <Item
+                  data-value={category}
+                  data-text={category}
+                  key={category}>
+                  <Icon className={`${val.color} ${val.icon}`}/>
+                  {category}
+                </Item>
+              )}
+            </Menu>{/* Menu */}
+          </Dropdown>{/* Category Dropdown */}
+        </Grid>
+      </div>
+    )
+  }
+}
+
+module.exports = UserModal

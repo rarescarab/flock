@@ -2,10 +2,19 @@ var mongoose = require('mongoose');
 
 var venueSchema = new mongoose.Schema({
   venueId: String,
+  name: String,
   photoSuffix: String,
+  address: String,
   rating: Number,
   price: Number,
   tier: String,
+  tips: Number,
+  visitors: Number,
+  menu: String,
+  url: String,
+  twitter: String,
+  facebook: String,
+  category: String,
   hours: [{
     days: String,
     open: [{ time: String }]

@@ -1,8 +1,5 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-
-
-var api = require('../../../config');
+var React = require('react')
+var api = require('../../../config')
 
 var FOURSQUARE_CLIENT_ID = api.foursquare.client_ID
 var FOURSQUARE_CLIENT_SECRET = api.foursquare.client_secret
