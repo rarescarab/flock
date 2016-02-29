@@ -3,6 +3,15 @@
 ## Summary
 Flock is an app designed to help you plan events of any kind to birthday parties and bar crawls to wedding weekends and days exploring new cities. Simply create an itinerary for your event and share it with your flock.
 
+## Stack/Technologies
+MongoDB
+Express
+React
+Node
+Mongoose
+Semantic UI
+Webpack
+Mocha & Chai
 
 ## Flock API
 
