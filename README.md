@@ -4,17 +4,17 @@
 Flock is an app designed to help you plan events of any kind to birthday parties and bar crawls to wedding weekends and days exploring new cities. Simply create an itinerary for your event and share it with your flock.
 
 ## Stack/Technologies
-MongoDB
-Express
-React
-Node
-Mongoose
-Semantic UI
-Webpack
+MongoDB  
+Express  
+React  
+Node  
+Mongoose  
+Semantic UI  
+Webpack  
 Mocha & Chai
 
 ## Getting Started
-To download front-end dependencies, `bower install`
+To download front-end dependencies, `bower install`  
 To download back-end dependencies, `npm install`
 
 ## Front-End
@@ -32,15 +32,15 @@ To download back-end dependencies, `npm install`
 All API keys stored in config.js file in root directory (in .gitignore). Use APIKeysTemplate.js as a guide.
 
 ## React Components
-App - main component that links together all other components
-Nav - navigation bar at the top of the page
-Search - searches Foursquare’s database of locations using a user-specified query
-Feed - shows suggested venues that user can add to an itinerary
-User - displays the user’s stats and event boards
-AuthModal - signup/login page using Facebook authentication
-Board - displays an event’s itinerary including user-generated text and location information
-BoardCard - an individual card displaying one location of an event
-BoardModal - allows user to create a new event card on an itinerary board
+App - main component that links together all other components  
+Nav - navigation bar at the top of the page  
+Search - searches Foursquare’s database of locations using a user-specified query  
+Feed - shows suggested venues that user can add to an itinerary  
+User - displays the user’s stats and event boards  
+AuthModal - signup/login page using Facebook authentication  
+Board - displays an event’s itinerary including user-generated text and location information  
+BoardCard - an individual card displaying one location of an event  
+BoardModal - allows user to create a new event card on an itinerary board  
 
 ## Back-End
 
@@ -242,6 +242,140 @@ DELETE requests remove persisted venue documents in the database. A venueId is r
 │   └── config
 │   │   ├── facebookAuth.js
 │   │   ├── foursquareAPI.js
+├── server
+│   └── config.js
+├── public
+│   ├── app.js
+│   ├── index.html
+│   ├── style.css
+│   ├── assets
+│   └── lib
+├── db
+├── spec
+│   ├── client
+│   └── server
+├── package.json
+├── bower.json
+├── .bowerrc
+├── .gitignore
+├── _PRESS_RELEASE.md
+└── README.md
+
+```
+
+  id: // User's unique Mongo-DB-generated ID
+  [name]: // User's new name
+  [username]: // User's new username
+}
+```
+
+The client triggers an update to change a user's name or username. The two fields are optional and all other fields are not updatable. Existing fields (i.e., _id, authId, boards) are deleted from the request body to prevent accidental updating.
+
+##### DELETE
+Endpoint: `/api/users`
+```javascript
+request.body = {
+  id: // User's unique Mongo-DB-generated ID
+}
+```
+
+A user's database ID can be sent in a DELETE request to remove that user's profile from the database. The response sends back a an object with information about how many documents were deleted from MongoDB.
+
+<a name="boards"></a>
+### Boards
+
+##### GET
+Endpoint: `/api/users/:id`
+
+##### POST
+Endpoint: `/api/users`
+```javascript
+request.body = {}
+```
+
+##### UPDATE
+Endpoint: `/api/users`
+```javascript
+request.body = {}
+```
+
+##### DELETE
+Endpoint: `/api/users`
+```javascript
+request.body = {
+  id: // Board's unique Mongo-DB-generated ID
+}
+```
+
+<a name="cards"></a>
+### Cards
+
+##### GET
+Endpoint: `/api/users/:id`
+
+##### POST
+Endpoint: `/api/users`
+```javascript
+request.body = {}
+```
+
+##### UPDATE
+Endpoint: `/api/users`
+
+##### DELETE
+Endpoint: `/api/users`
+```javascript
+request.body = {
+  id: // Card's unique Mongo-DB-generated ID
+}
+```
+
+<a name="venues"></a>
+### Venues
+
+##### GET
+Endpoint: `/api/users/:id`
+
+##### POST
+Endpoint: `/api/users`
+```javascript
+request.body = {}
+```
+
+##### UPDATE
+Endpoint: `/api/users`
+
+##### DELETE
+Endpoint: `/api/users`
+```javascript
+request.body = {
+  id: // Venue's unique Mongo-DB-generated ID
+}
+```
+
+## File Structure
+
+```
+.
+├── client
+│   └── components
+│   │   ├── App.jsx
+│   │   ├── Nav.jsx
+│   │   ├── Search.jsx
+│   │   ├── board
+│   │   │   ├── Board.jsx
+│   │   │   ├── BoardCard.jsx
+│   │   │   ├── BoardCardModal.jsx
+│   │   ├── main
+│   │   │   ├── AuthModal.jsx
+│   │   │   ├── Feed.jsx
+│   │   │   ├── FeedCard.jsx
+│   │   └── user
+│   │   │   ├── User.jsx
+│   │   │   ├── UserCard.jsx
+│   │   │   ├── BoardModal.jsx
+│   └── lib
+│   └── config
 ├── server
 │   └── config.js
 ├── public
