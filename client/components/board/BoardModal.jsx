@@ -91,6 +91,9 @@ var BoardModal = React.createClass({
 //   startCalendar: $('#rangestart')
 // });
 
+// https://jsbin.com/xupahuriyi/edit?html,js,output
+// http://react-components.com/component/react-datepicker
+
   }
 });
 
