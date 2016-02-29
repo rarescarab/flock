@@ -9,11 +9,12 @@ var Q = require('q');
 var getBoards = Q.nbind(Board.find, Board);
 var findBoard = Q.nbind(Board.findOne, Board);
 var createBoard = Q.nbind(Board.create, Board);
-var updateBoard = Q.nbind(Board.findOneAndUpdate, Board);
-var removeBoard = Q.nbind(Board.findOneAndRemove, Board);
+var updateBoard = Q.nbind(Board.update, Board);
+var removeBoard = Q.nbind(Board.remove, Board);
 var populateCards = Q.nbind(Board.populate, Board);
-var populateUser = Q.nbind(User.populate, User);
+
 var updateUser = Q.nbind(User.findOneAndUpdate, User);
+var populateUser = Q.nbind(User.populate, User);
 
 /* ------------------------ */
 /*     BOARD CONTROLLER     */
@@ -25,19 +26,19 @@ module.exports = {
   /////////////////
 
   fetchOne: function (req, res, next) {
-    console.log("GET REQUEST GOT!! : ", req.body);
+    var permalink = req.query.permalink;
+    var userId = req.query.uid;
 
-    var board = req.body.board;
-    var uid = req.body.uid;
-
-    findBoard({title: board, userId: uid}) // might need return statement
+    findBoard({permalink: permalink, userId: userId})
     .then(function (board) {
       if (!board) {
-        throw new Error('Board: %s does not exist', board);
+        console.error('Board: %s does not exist', permalink);
+        res.status(204).json({status: 'Permalink "' + permalink + '" does not exist'});
       } else {
         res.status(200).json(board);
       }
     }).fail(function (err) {
+      console.error('Could not retrieve board', err);
       res.status(404).json(err);
     });
   },
@@ -47,23 +48,20 @@ module.exports = {
   //////////////////
 
   createOne: function (req, res, next) {
-    console.log("POST REQUEST! : ", req.body)
-    //Needs to have a username.
     var title = req.body.title;
     var desc = req.body.desc;
     var img = req.body.img;
     var category = req.body.category;
     var permalink = req.body.permalink;
     var uid = req.body.uid;
-    var cards = req.body.cards;
 
-    findBoard({permalink: permalink, username: username}) // change title to permalink
+    findBoard({permalink: permalink, userId: uid})
     .then(function (board) {
       if (board) {
-        console.error('Board already exists');
-        throw new Error('Board already exists');
+        console.error('Board "%s" already exists with the permalink "%s"', board.title, board.permalink);
+        res.status(409).send(null);
       }
-      createBoard({ // might need return statement
+      createBoard({
         title: title,
         description: desc,
         headerImage: img,
@@ -73,9 +71,9 @@ module.exports = {
         cards: []
       })
       .then(function (board) {
-        updateUser({userId: uid}, // might need return statement
+        updateUser({_id: board.userId},
           {$push: {boards: board._id}},
-          {new: true}) // returns updated document
+          {new: true})
           .then(function (user) {
             var opts = [{path: 'boards', model: 'Board'}];
             populateCards(user, opts)
