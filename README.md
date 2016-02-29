@@ -13,6 +13,10 @@ Semantic UI
 Webpack
 Mocha & Chai
 
+## Getting Started
+To download front-end dependencies, `bower install`
+To download back-end dependencies, `npm install`
+
 ## Flock API
 
 The following outlines server-side requests that can be sent to the Flock API.
