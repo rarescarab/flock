@@ -31,6 +31,19 @@ To download back-end dependencies, `npm install`
 
 All API keys stored in config.js file in root directory (in .gitignore). Use APIKeysTemplate.js as a guide.
 
+## React Components
+App - main component that links together all other components
+Nav - navigation bar at the top of the page
+Search - searches Foursquare’s database of locations using a user-specified query
+Feed - shows suggested venues that user can add to an itinerary
+User - displays the user’s stats and event boards
+AuthModal - signup/login page using Facebook authentication
+Board - displays an event’s itinerary including user-generated text and location information
+BoardCard - an individual card displaying one location of an event
+BoardModal - allows user to create a new event card on an itinerary board
+
+## Back-End
+
 ## Flock API
 
 The following outlines server-side requests that can be sent to the Flock API.
