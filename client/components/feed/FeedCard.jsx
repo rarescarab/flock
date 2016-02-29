@@ -16,17 +16,17 @@ var FeedCard = React.createClass({
         <div className="ui content attached segment">
           <div className="header">{this.props.card.name}</div>
           <div className="meta">
-            <i className="ui tiny dollar icon"></i>
-            <i className="ui tiny dollar icon"></i>
-            <i className="ui tiny dollar icon"></i>
-            <i className="ui tiny dollar icon"></i>
+            <Icon className="tiny dollar"/>
+            <Icon className="tiny dollar"/>
+            <Icon className="tiny dollar"/>
+            <Icon className="tiny dollar"/>
           </div>
           <div className="description">
-            <i className="pin icon"></i>
+            <Icon className="pin"/>
             {this.props.card.location.address}
           </div>
           <div className="description">
-            <i className="call icon"></i>
+            <Icon className="call"/>
             {this.props.card.contact.formattedPhone}
           </div>
           <div className="description">
