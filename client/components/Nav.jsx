@@ -11,23 +11,36 @@ var Search = require('./Search.jsx');
 
 var Nav = React.createClass({
   responseFacebook: function (response) {
+    var props = this.props;
+
     var username = response.name.replace(/\s+/g, '').toLowerCase();;
-    console.log('UID: ', response.id, 'NAME: ', response.name, 'USERNAME: ', username);
+    console.log('AUTHID: ', response.id, 'NAME: ', response.name, 'USERNAME: ', response.username);
+
     $.post('/api/users', { 
-      uid: response.id, 
+      authId: response.id, 
       name: response.name,
       username: username
     })
     .done(function (user) {
-      
+      props.setUser({
+        id: response._id,
+        name: name,
+        username: username
+      })
     })
     .fail(function (err) {
-      console.log('There was an error!');
+      console.error('Could not authenticate.', err);
+      throw new Error('Could not authenticate.', err)
     });
   },
 
   logout: function () {
+    var props = this.props;
+
     FB.logout(function (response) {
+      props.setUser({
+        username: "Sign In"
+      })
       console.log("You\'ve been logged out!\n", response);
     });
   },
@@ -51,7 +64,7 @@ var Nav = React.createClass({
               />
             </div>
             <div id="userMenu" className="ui simple right dropdown item">
-              Username<i className="dropdown icon"></i>
+              {this.props.user.username}<i className="dropdown icon"></i>
               <div className="menu">
                 <a className="item" href="#"><i className="grid layout icon"></i>My Boards</a>
                 <div className="divider"></div>
