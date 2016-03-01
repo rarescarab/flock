@@ -21,13 +21,17 @@ To download back-end dependencies, `npm install`
 
 ## APIs
 ### Facebook Auth
+- requires Facebook App ID
+- gives the user an access token and allows us to authorize user
+
+### Zip Code
+- requires API key
+- converts zip codes into city names
+
 ### Foursquare
 - requires client ID & client secret to access
 - Search endpoint - takes in a city and a search query and returns a collection of venues
 - Venues endpoint - takes in a specific Foursquare venueId and returns more information about that venue
-### Zip Code
-- requires API key
-- converts zip codes into city names
 
 All API keys stored in config.js file in root directory (in .gitignore). Use APIKeysTemplate.js as a guide.
 
